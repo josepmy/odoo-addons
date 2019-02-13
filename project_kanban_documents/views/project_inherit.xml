@@ -15,6 +15,11 @@
             <field name="label_tasks" position="after">
                 <field name="doc_count" invisible="1"/>
             </field>
+            <xpath expr="//div[hasclass('o_kanban_manage_reports')]/div[last()]" position="after">
+                <div>
+                    <a name="documents_tree_view" type="model">Documents</a>
+                </div>
+            </xpath>
             <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
                 <a class="o_project_kanban_box" name="documents_tree_view" type="model">
                     <div>
