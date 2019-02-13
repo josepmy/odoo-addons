@@ -12,16 +12,16 @@
         <field name="inherit_id" ref="project.view_project_kanban"/>
         <field name="priority">24</field>
         <field name="arch" type="xml">
-            <field name="label_tasks" position="after">
+            <xpath expr="/kanban" position="inside">
                 <field name="doc_count" invisible="1"/>
-            </field>
+            </xpath>
             <xpath expr="//div[hasclass('o_kanban_manage_reports')]/div[last()]" position="after">
                 <div>
-                    <a href="#" name="documents_tree_view" type="model">Documents</a>
+                    <a name="attachment_tree_view" type="object">Documents</a>
                 </div>
             </xpath>
             <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
-                <a href="#" class="o_project_kanban_box" name="documents_tree_view" type="model">
+                <a class="o_project_kanban_box" name="attachment_tree_view" type="object">
                     <div>
                         <span class="o_value"><t t-esc="record.doc_count.value"/></span>
                         <span class="o_label">Documents</span>
