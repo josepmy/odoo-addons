@@ -14,7 +14,7 @@ class Project(models.Model):
     _inherit = 'project.project'
 
     @api.multi
-    def attachment_tree_view(self):
+    def documents_tree_view(self):
         _logger.warning('---> attachment_tree_view %s', self)
         self.ensure_one()
         _logger.warning('--- one ---')

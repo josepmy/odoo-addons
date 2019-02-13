@@ -16,7 +16,7 @@
                 <field name="doc_count" invisible="1"/>
             </field>
             <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
-                <a class="o_project_kanban_box" name="attachment_tree_view" type="model">
+                <a class="o_project_kanban_box" name="documents_tree_view" type="model">
                     <div>
                         <span class="o_value"><t t-esc="record.doc_count.value"/></span>
                         <span class="o_label">Documents</span>
