@@ -24,7 +24,8 @@
                 <a class="o_project_kanban_box" name="attachment_tree_view" type="object">
                     <div>
                         <span class="o_value"><t t-esc="record.doc_count.value"/></span>
-                        <span class="o_label">Documents</span>
+                        <span t-if="record.doc_count.value == 1" class="o_label">Document</span>
+                        <span t-if="record.doc_count.value != 1" class="o_label">Documents</span>
                     </div>
                 </a>
             </xpath>

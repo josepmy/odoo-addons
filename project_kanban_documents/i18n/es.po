@@ -19,8 +19,8 @@ msgstr ""
 
 #. module: project_kanban_documents
 #: model:ir.ui.view,arch_db:project_kanban_documents.project_kanban_documents_view
-msgid "<span class=\"o_label\">Documents</span>"
-msgstr "<span class=\"o_label\">Documentos</span>"
+msgid "Document"
+msgstr "Documento"
 
 #. module: project_kanban_documents
 #: model:ir.ui.view,arch_db:project_kanban_documents.project_kanban_documents_view
