@@ -13,7 +13,7 @@
         <field name="priority">24</field>
         <field name="arch" type="xml">
             <field name="label_tasks" position="after">
-                <field name="doc_count"/>
+                <field name="doc_count" invisible="1"/>
             </field>
             <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
                 <a class="o_project_kanban_box" name="attachment_tree_view" type="model">
