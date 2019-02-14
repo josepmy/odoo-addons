@@ -5,7 +5,6 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-<data>
     <record id="project_kanban_documents_view" model="ir.ui.view">
         <field name="name">project.kanban.documents.view</field>
         <field name="model">project.project</field>
@@ -32,5 +31,4 @@
         </field>
     </record>
 
-</data>
 </odoo>
