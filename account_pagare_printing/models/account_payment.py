@@ -43,6 +43,7 @@ class AccountRegisterPayments(models.TransientModel):
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
+    payment_type = fields.Selection(selection_add=[('transfer', 'Internal Transfer')])
     pagare_amount_in_words = fields.Char(string="Amount in Words")
     pagare_manual_sequencing = fields.Boolean(related='journal_id.pagare_manual_sequencing', readonly=1)
     pagare_number = fields.Integer(string="Pagare Number", readonly=True, copy=False,
