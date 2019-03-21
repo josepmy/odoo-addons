@@ -64,16 +64,6 @@ class AccountPayment(models.Model):
         self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount) if self.currency_id else ''
         return res
 
-    @api.one
-    @api.constrains('payment_method_id', 'communication')
-    def _pagare_communication(self, payment_method_id, communication):
-        super(AccountPayment, self)._pagare_communication(payment_method_id, communication)
-        if payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare').id:
-            if not communication:
-                return
-            if len(communication) > 60:
-                raise ValidationError(_("A pagare memo cannot exceed 60 characters."))
-
     @api.model
     def create(self, vals):
         if vals['payment_method_id'] == self.env.ref('account_pagare_printing.account_payment_method_pagare').id:
