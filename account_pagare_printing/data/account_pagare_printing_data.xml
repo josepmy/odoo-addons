@@ -9,7 +9,7 @@
         <record id="account_payment_method_pagare" model="account.payment.method">
             <field name="name">Pagaré</field>
             <field name="code">pagare_printing</field>
-            <field name="payment_type">outbound</field>
+            <field name="payment_type">transfer</field>
         </record>
 
         <function model="account.journal" name="_enable_pagare_printing_on_bank_journals"/>

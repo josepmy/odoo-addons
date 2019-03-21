@@ -86,7 +86,7 @@ class AccountPayment(models.Model):
 
         if not self[0].journal_id.pagare_manual_sequencing:
             # The wizard asks for the number printed on the first pre-printed pagare
-            # so payments are attributed the number of the check the'll be printed on.
+            # so payments are attributed the number of the pagare the'll be printed on.
             last_printed_pagare = self.search([
                 ('journal_id', '=', self[0].journal_id.id),
                 ('pagare_number', '!=', 0)], order="pagare_number desc", limit=1)
