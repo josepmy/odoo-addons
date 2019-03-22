@@ -24,9 +24,6 @@ class ReportPagarePrinting(models.AbstractModel):
 
     @api.multi
     def get_paid_lines(self, payments):
-        _logger.warning("----> get_paid_lines %s", payments)
-        if self.env.context.get('active_model') != 'account.payment':
-            return {}
         lines = {}
         for payment in payments:
             lines[payment.id] = []
