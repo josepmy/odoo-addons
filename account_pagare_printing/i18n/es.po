@@ -78,7 +78,7 @@ msgstr "Nombre mostrado"
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
 msgid "Due Date"
-msgstr "Fecha de vencimiento"
+msgstr "Fecha vencimiento"
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_id
@@ -96,7 +96,7 @@ msgstr "Para poder imprimir múltiples pagarés deben pertenecer al mismo diario
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
 msgid "Invoice Date"
-msgstr "Fecha de la factura"
+msgstr "Fecha factura"
 
 #. module: account_pagare_printing
 #: model:ir.model,name:account_pagare_printing.model_account_journal
