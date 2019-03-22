@@ -172,7 +172,7 @@ msgid "Pagare"
 msgstr "Pagaré"
 
 #. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_account_id
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_bridge_account_id
 msgid "Pagare Bridge Account"
 msgstr "Cuenta puente"
 
