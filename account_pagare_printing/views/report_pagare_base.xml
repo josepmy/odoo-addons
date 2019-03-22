@@ -79,7 +79,12 @@
                 <div class="footer">
                     <div class="row">
                         <div class="col-xs-2 col-xs-offset-10">
-                            <span t-field="o.amount" t-options='{"widget": "monetary"}'/>
+                            <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": False}'/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-1 col-xs-offset-7">
+                            <span t-esc="datetime.datetime.strptime(o.pagare_due_date, '%Y-%m-%d').strftime('%d de %B de %Y')"/>
                         </div>
                     </div>
                     <div class="row">
@@ -87,6 +92,12 @@
                             <span t-esc="fill_stars(o.pagare_amount_in_words)"/>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xs-1 col-xs-offset-7">
+                            <span t-esc="datetime.datetime.strptime(o.payment_date, '%Y-%m-%d').strftime('%d de %B de %Y')"/>
+                        </div>
+                    </div>
+
                 </div>
 
             </t>

@@ -43,6 +43,20 @@ class AccountRegisterPayments(models.TransientModel):
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
+    @api.one
+    @api.depends('invoice_ids')
+    def _compute_pagare_due_date(self):
+        date_due = False
+        for invoice in self.invoice_ids:
+            if not date_due:
+                date_due = invoice.date_due
+            elif invoice.date_due < date_due:
+                date_due = invoice.date_due
+
+        self.pagare_due_date = date_due
+
+    pagare_due_date = fields.Date(string='Pagare Due Date', readonly=True, copy=False,
+                                  compute='_compute_pagare_due_date')
     pagare_amount_in_words = fields.Char(string="Amount in Words")
     pagare_manual_sequencing = fields.Boolean(related='journal_id.pagare_manual_sequencing', readonly=1)
     pagare_number = fields.Integer(string="Pagare Number", readonly=True, copy=False,
