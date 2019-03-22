@@ -12,8 +12,8 @@ class ReportPagarePrinting(models.AbstractModel):
     _name = 'report.account_pagare_printing.report_pagare_base'
 
     def fill_stars(self, amount_in_word):
-        if amount_in_word and len(amount_in_word) < 100:
-            stars = 100 - len(amount_in_word)
+        if amount_in_word and len(amount_in_word) < 90:
+            stars = 90 - len(amount_in_word)
             return ' '.join([amount_in_word, '*' * stars])
         else:
             return amount_in_word
@@ -27,6 +27,7 @@ class ReportPagarePrinting(models.AbstractModel):
                 amount_currency = 0.0
                 amount = 0.0
                 line = {
+                    'date': invoice.date,
                     'date_due': invoice.date_due,
                     'reference': invoice.reference,
                     'number': invoice.number,

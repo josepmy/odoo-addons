@@ -33,11 +33,12 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='advanced_settings']/group" position="inside">
                 <group string="Pagare Printing" attrs="{'invisible': [('pagare_printing_payment_method_selected', '=', False)]}">
-                    <field name="pagare_layout_id"/>
                     <field name="pagare_printing_payment_method_selected" invisible="1"/>
                     <field name="pagare_sequence_id" invisible="1"/>
                     <field name="pagare_manual_sequencing"/>
                     <field name="pagare_next_number" attrs="{'invisible': [('pagare_manual_sequencing', '=', False)]}"/>
+                    <field name="pagare_account_id"/>
+                    <field name="pagare_layout_id"/>
                 </group>
             </xpath>
         </field>

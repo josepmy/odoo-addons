@@ -40,38 +40,58 @@
                                 <table width="100%">
                                     <thead>
                                         <tr style="text-align:left;">
+                                            <th>Invoice</th>
+                                            <th>Invoice Date</th>
                                             <th>Due Date</th>
-                                            <th>Description</th>
-                                            <th>Original Amount</th>
-                                            <th>Balance Due</th>
+                                            <th>Our Reference</th>
                                             <th>Payment</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <t t-set="paid_total" t-value="0.0"/>
                                         <t t-foreach="paid_lines[o.id]" t-as="line">
+                                            <t t-set="paid_total" t-value="paid_total + line['paid_amount']"/>
                                             <tr style="text-align:left;border-top: 0px;">
+                                                <td>
+                                                    <span t-esc="line['reference']"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line['date']" t-esc-options="{'widget': 'date'}"/>
+                                                </td>
                                                 <td>
                                                     <span t-esc="line['date_due']" t-esc-options="{'widget': 'date'}"/>
                                                 </td>
                                                 <td>
-                                                    <span t-esc="line['reference'] or line['number']"/>
-                                                </td>
-                                                <td>
-                                                    <span t-esc="line['amount_total']"
-                                                          t-esc-options="{'widget': 'monetary', 'display_currency': 'o.currency_id'}"/>
-                                                </td>
-                                                <td>
-                                                    <span t-esc="line['residual']"
-                                                          t-esc-options="{'widget': 'monetary', 'display_currency': 'o.currency_id'}"/>
+                                                    <span t-esc="line['number']"/>
                                                 </td>
                                                 <td>
                                                     <span t-esc="line['paid_amount']"
-                                                          t-esc-options="{'widget': 'monetary', 'display_currency': 'o.currency_id'}"/>
+                                                          t-esc-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                                 </td>
                                             </tr>
                                         </t>
+                                        <tr style="text-align:left;border-top: 0px;">
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <span>Total</span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="paid_total"
+                                                          t-esc-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                                </td>
+                                        </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:10mm;">
+                            <div class="col-xs-12">
+                                A la espera de que sea de su conformidad, aprovechamos la ocasión para saludarle(s) muy atentamente.
                             </div>
                         </div>
 
@@ -80,7 +100,7 @@
 
                 <div class="footer">
                     <div class="row">
-                        <div class="col-xs-2 col-xs-offset-10">
+                        <div class="col-xs-4 col-xs-offset-8 text-center">
                             ##<span t-field="o.amount" t-options="{'widget': 'float', 'decimal_precision': 'Product Price'}"/>##
                         </div>
                     </div>
