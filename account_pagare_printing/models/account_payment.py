@@ -142,4 +142,9 @@ class AccountPayment(models.Model):
     def _get_liquidity_move_line_vals(self, amount):
         vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
         _logger.warning("---> _get_liquidity_move_line_vals: %s", vals)
+        if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
+            _logger.warning("Es un pagaré... vemos si hay cuenta puente")
+            if self.journal_id.pagare_bridge_account_id:
+                _logger.warning("establecer nueva cuenta: %s", self.journal_id.pagare_bridge_account_id.name)
+                vals['account_id'] = self.journal_id.pagare_bridge_account_id.id
         return vals
