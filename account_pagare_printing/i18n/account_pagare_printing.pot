@@ -32,8 +32,8 @@ msgid "A la espera de que sea de su conformidad, aprovechamos la ocasión para s
 msgstr ""
 
 #. module: account_pagare_printing
-#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_account_id
-msgid "Account to move the ammount when the pagare is created."
+#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_bridge_account_id
+msgid "Account to move the ammount when the pagare is emited."
 msgstr ""
 
 #. module: account_pagare_printing

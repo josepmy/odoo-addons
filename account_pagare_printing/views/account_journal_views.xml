@@ -37,7 +37,7 @@
                     <field name="pagare_sequence_id" invisible="1"/>
                     <field name="pagare_manual_sequencing"/>
                     <field name="pagare_next_number" attrs="{'invisible': [('pagare_manual_sequencing', '=', False)]}"/>
-                    <field name="pagare_account_id"/>
+                    <field name="pagare_bridge_account_id"/>
                     <field name="pagare_layout_id"/>
                 </group>
             </xpath>

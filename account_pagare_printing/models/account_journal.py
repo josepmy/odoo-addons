@@ -42,9 +42,9 @@ class AccountJournal(models.Model):
     pagare_printing_payment_method_selected = fields.Boolean(compute='_compute_pagare_printing_payment_method_selected',
                                                              help="Technical feature used to know whether pagare "
                                                                   "printing was enabled as payment method.")
-    pagare_account_id = fields.Many2one(comodel_name='account.account', string='Pagare Bridge Account',
-                                        domain=[('deprecated', '=', False)],
-                                        help="Account to move the ammount when the pagare is created.")
+    pagare_bridge_account_id = fields.Many2one(comodel_name='account.account', string='Pagare Bridge Account',
+                                               domain=[('deprecated', '=', False)],
+                                               help="Account to move the ammount when the pagare is emited.")
     pagare_layout_id = fields.Many2one(comodel_name='account.payment.pagare.report', string="Pagare printing format")
 
     @api.model
