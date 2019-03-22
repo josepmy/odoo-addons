@@ -259,7 +259,7 @@ msgid ""
 "printed pagare paper already has numbers or if the current numbering is "
 "wrong, you can change it in the journal configuration page."
 msgstr ""
-"El diario seleccionado está configurado para imprimir números de pagaré . Si"
+"El diario seleccionado está configurado para imprimir números de pagaré. Si"
 " sus pagarés pre-impresos ya tienen números o si la numeración actual es "
 "incorrecta, puede cambiarla en la página de configuración del diario."
 
@@ -268,10 +268,10 @@ msgstr ""
 #, python-format
 msgid ""
 "There is no pagare layout configured.\n"
-"Make sure the proper pagare printing module is installed and its configuration (in company settings > 'Configuration' tab) is correct."
+"Make sure the proper pagare printing module is installed and its configuration in the bank journal is correct."
 msgstr ""
 "No hay una plantilla de pagarés configurada.\n"
-"Asegúrese de que está instalado el módulo de impresión de pagarés y de que su configuración (en configuración de la empresa > 'Configuración) es correcta ."
+"Asegúrese de que está instalado el módulo de impresión de pagarés y de que su configuración en el diario del banco es correcta."
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view

@@ -113,6 +113,10 @@ class AccountPayment(models.Model):
 
     @api.multi
     def do_print_pagares(self):
-        """ This method is a hook for l10n_xx_pagare_printing modules to implement actual pagare printing capabilities """
+        for rec in self:
+            if rec.journal_id.pagare_layout_id:
+                return self.env['ir.actions.report']._get_report_from_name(
+                    rec.journal_id.pagare_layout_id.report
+                ).report_action(self)
         raise UserError(_("There is no pagare layout configured.\nMake sure the proper pagare printing module is "
-                          "installed and its configuration (in company settings > 'Configuration' tab) is correct."))
+                          "installed and its configuration in the bank journal is correct."))

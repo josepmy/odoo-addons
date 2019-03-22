@@ -7,7 +7,7 @@
 <odoo>
     <data noupdate="1">
         <record id="account_payment_method_pagare" model="account.payment.method">
-            <field name="name">Pagaré</field>
+            <field name="name">Pagare</field>
             <field name="code">pagare_printing</field>
             <field name="payment_type">outbound</field>
         </record>
@@ -15,7 +15,7 @@
         <function model="account.journal" name="_enable_pagare_printing_on_bank_journals"/>
 
         <record model="ir.actions.server" id="action_account_print_pagares">
-            <field name="name">Print Pagarés</field>
+            <field name="name">Print Pagares</field>
             <field name="model_id" ref="account.model_account_payment"/>
             <field name="binding_model_id" ref="account.model_account_payment" />
             <field name="state">code</field>
@@ -23,6 +23,11 @@
 if records:
     action = records.print_pagares()
             </field>
+        </record>
+
+        <record id="account_payment_pagare_report_base" model="account.payment.pagare.report">
+            <field name="name">Base</field>
+            <field name="report">account_pagare_printing.report_pagare_base</field>
         </record>
 
     </data>

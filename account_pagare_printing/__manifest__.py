@@ -5,7 +5,7 @@
 
 {
     'name': 'Pagare Printing Base',
-    'version': "11.0.1.0.2",
+    'version': "11.0.1.0.3",
     'category': 'Accounting',
     'summary': 'Pagare printing commons',
     'description': """
@@ -15,12 +15,17 @@ The pagare settings are located in the accounting journals configuration page.
     'license': 'AGPL-3',
     'author': "Fenix Engineering Solutions",
     'website': "http://www.fenix-es.com",
-    'depends': ['account'],
+    'depends': ['account', ],
     'data': [
+        'security/ir.model.access.csv',
+        'data/report_paperformat.xml',
         'data/account_pagare_printing_data.xml',
+        'views/account_payment_pagare_report_view.xml',
+        'views/report_pagare_base.xml',
         'views/account_journal_views.xml',
         'views/account_payment_views.xml',
-        'wizard/print_prenumbered_pagares_views.xml'
+        'report/account_pagare_printing_report.xml',
+        'wizard/print_prenumbered_pagares_views.xml',
     ],
     'installable': True,
     'auto_install': False,

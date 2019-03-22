@@ -235,7 +235,7 @@ msgstr ""
 #: code:addons/account_pagare_printing/models/account_payment.py:121
 #, python-format
 msgid "There is no pagare layout configured.\n"
-"Make sure the proper pagare printing module is installed and its configuration (in company settings > 'Configuration' tab) is correct."
+"Make sure the proper pagare printing module is installed and its configuration in the bank journal is correct."
 msgstr ""
 
 #. module: account_pagare_printing
