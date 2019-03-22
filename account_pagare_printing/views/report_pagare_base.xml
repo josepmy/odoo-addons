@@ -16,18 +16,18 @@
 
                 <div class="article">
                     <div class="page">
-                        <div class="row" style="padding-top:20mm;">
-                            <div class="col-xs-5 col-xs-offset-7">
+                        <div class="row" style="padding-top: 15mm;">
+                            <div class="col-xs-6 col-xs-offset-6">
                                 <address t-field="o.partner_id"
                                          t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
                             </div>
                         </div>
-                        <div class="row" style="padding-top:20mm;">
+                        <div class="row" style="padding-top: 15mm;">
                             <div class="col-xs-5 col-xs-offset-7">
                                 <span t-field="o.company_id.city"/>, <span t-esc="datetime.datetime.strptime(o.payment_date, '%Y-%m-%d').strftime('%-d de %B de %Y')"/>
                             </div>
                         </div>
-                        <div class="row" style="padding-top:10mm;">
+                        <div class="row" style="padding-top: 10mm;">
                             <div class="col-xs-12">
                                 Muy señor(es) nuestro(s):<br/>
                                 <br/>
@@ -35,9 +35,9 @@
                             </div>
                         </div>
 
-                        <div class="row" style="padding-top:10mm;">
+                        <div class="row" style="padding-top: 10mm;">
                             <div class="col-xs-12">
-                                <table width="100%">
+                                <table width="100%" class="table table-condensed" style="border: 1px solid #dddddd;">
                                     <thead>
                                         <tr style="text-align:left;">
                                             <th>Your Invoice</th>
@@ -51,36 +51,36 @@
                                         <t t-set="paid_total" t-value="0.0"/>
                                         <t t-foreach="paid_lines[o.id]" t-as="line">
                                             <t t-set="paid_total" t-value="paid_total + line['paid_amount']"/>
-                                            <tr style="text-align:left;border-top: 0px;">
-                                                <td>
+                                            <tr style="text-align: left;">
+                                                <td class="text-center">
                                                     <span t-esc="line['reference']"/>
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <span t-esc="line['date']" t-esc-options="{'widget': 'date'}"/>
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <span t-esc="line['date_due']" t-esc-options="{'widget': 'date'}"/>
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <span t-esc="line['number']"/>
                                                 </td>
-                                                <td>
+                                                <td class="text-right">
                                                     <span t-esc="line['paid_amount']"
                                                           t-esc-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                                 </td>
                                             </tr>
                                         </t>
-                                        <tr style="text-align:left;border-top: 0px;">
+                                        <tr style="text-align: left;">
                                                 <td>
                                                 </td>
                                                 <td>
                                                 </td>
                                                 <td>
                                                 </td>
-                                                <td>
+                                                <td class="text-right" style="font-weight: bold;">
                                                     <span>Total</span>
                                                 </td>
-                                                <td>
+                                                <td class="text-right" style="font-weight: bold; border-left: 1px solid #dddddd;">
                                                     <span t-esc="paid_total"
                                                           t-esc-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                                 </td>
@@ -89,7 +89,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row" style="padding-top:10mm;">
+                        <div class="row" style="padding-top: 10mm;">
                             <div class="col-xs-12">
                                 A la espera de que sea de su conformidad, aprovechamos la ocasión para saludarle(s) muy atentamente.
                             </div>
