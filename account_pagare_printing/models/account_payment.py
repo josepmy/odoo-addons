@@ -153,8 +153,8 @@ class AccountPayment(models.Model):
         raise UserError(_("There is no pagare layout configured.\nMake sure the proper pagare printing module is "
                           "installed and its configuration in the bank journal is correct."))
 
-    def _get_move_vals(self, journal=None):
-        vals = super(AccountPayment, self)._get_move_vals(journal)
+    def _get_counterpart_move_line_vals(self, invoice=None):
+        vals = super(AccountPayment, self)._get_counterpart_move_line_vals(invoice)
         _logger.warning("---> _get_move_vals: %s", vals)
         if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
             _logger.warning("Es un pagaré... establecemos la fecha de vencimiento: %s", self.pagare_due_date)
