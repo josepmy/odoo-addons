@@ -247,8 +247,8 @@ msgstr "Pagarés a imprimir"
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
-msgid "Payment"
-msgstr "Pagos"
+msgid "Amount"
+msgstr "Importe"
 
 #. module: account_pagare_printing
 #: model:ir.actions.report,name:account_pagare_printing.action_report_pagare_base

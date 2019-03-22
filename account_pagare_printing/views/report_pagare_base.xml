@@ -44,7 +44,7 @@
                                             <th class="text-center">Invoice Date</th>
                                             <th class="text-center">Due Date</th>
                                             <th class="text-center">Our Reference</th>
-                                            <th class="text-center">Payment</th>
+                                            <th class="text-center">Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>

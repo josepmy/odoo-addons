@@ -241,7 +241,7 @@ msgstr ""
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
-msgid "Payment"
+msgid "Amount"
 msgstr ""
 
 #. module: account_pagare_printing
