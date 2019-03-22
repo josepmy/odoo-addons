@@ -13,6 +13,7 @@
                         <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)" style="max-width: 300px;"/>
                     </div>
                 </div>
+
                 <div class="article">
                     <div class="page">
                         <div class="row" style="padding-top:20mm;">
@@ -72,20 +73,22 @@
                             </table>
                         </div>
 
-
-
-
-                        <div class="row" style="padding-top:10mm;">
-                            <span t-field="o.amount"
-                                  t-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
-                            <br/>
-                            <span t-esc="fill_stars(o.pagare_amount_in_words)"/>
-                        </div>
-
-
-
                     </div>
                 </div>
+
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-xs-2 col-xs-offset-10">
+                            <span t-field="o.amount" t-options='{"widget": "monetary"}'/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-11 col-xs-offset-1">
+                            <span t-esc="fill_stars(o.pagare_amount_in_words)"/>
+                        </div>
+                    </div>
+                </div>
+
             </t>
         </t>
     </template>

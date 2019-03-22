@@ -7,10 +7,6 @@ import time
 from odoo import api, models
 from odoo.tools import float_is_zero
 
-import logging
-
-_logger = logging.getLogger(__name__)
-
 
 class ReportPagarePrinting(models.AbstractModel):
     _name = 'report.account_pagare_printing.report_pagare_base'
@@ -99,7 +95,6 @@ class ReportPagarePrinting(models.AbstractModel):
         model = self.env.context.get('active_model', 'account.payment')
         objects = self.env[model].browse(docids)
         paid_lines = self.get_paid_lines(objects)
-        _logger.warning("----> paid_lines: %s", paid_lines)
         docargs = {
             'doc_ids': docids,
             'doc_model': model,
