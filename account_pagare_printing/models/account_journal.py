@@ -65,7 +65,7 @@ class AccountJournal(models.Model):
     def _create_pagare_sequence(self):
         """ Create a pagare sequence for the journal """
         self.pagare_sequence_id = self.env['ir.sequence'].sudo().create({
-            'name': self.name + _(" : Pagare Number Sequence"),
+            'name': self.name + _(": Pagare Number Sequence"),
             'implementation': 'no_gap',
             'padding': 5,
             'number_increment': 1,
