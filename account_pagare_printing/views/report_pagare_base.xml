@@ -117,7 +117,7 @@
                             <span t-esc="fill_stars(o.pagare_amount_in_words)"/>
                         </div>
                     </div>
-                    <div class="row mt24">
+                    <div class="row">
                         <div class="col-xs-2 col-xs-offset-5 text-center">
                             <span t-esc="datetime.datetime.strptime(o.payment_date, '%Y-%m-%d').strftime('%-d')"/>
                         </div>

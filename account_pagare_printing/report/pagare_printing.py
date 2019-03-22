@@ -12,9 +12,9 @@ class ReportPagarePrinting(models.AbstractModel):
     _name = 'report.account_pagare_printing.report_pagare_base'
 
     def fill_stars(self, amount_in_word):
-        if amount_in_word and len(amount_in_word) < 80:
-            stars = 80 - len(amount_in_word)
-            return ' '.join([amount_in_word, '*' * stars])
+        if amount_in_word and len(amount_in_word) < 150:
+            stars = (150 - len(amount_in_word)) / 2
+            return ' '.join([amount_in_word, '* ' * stars])
         else:
             return amount_in_word
 
