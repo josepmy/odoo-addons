@@ -6,6 +6,10 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class AccountRegisterPayments(models.TransientModel):
     _inherit = "account.register.payments"
@@ -134,3 +138,8 @@ class AccountPayment(models.Model):
                 ).report_action(self)
         raise UserError(_("There is no pagare layout configured.\nMake sure the proper pagare printing module is "
                           "installed and its configuration in the bank journal is correct."))
+
+    def _get_liquidity_move_line_vals(self, amount):
+        vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
+        _logger.warning("---> _get_liquidity_move_line_vals: %s", vals)
+        return vals
