@@ -5,7 +5,7 @@
 
 {
     'name': 'Pagare Printing Base',
-    'version': "11.0.1.0.3",
+    'version': "11.0.1.0.4",
     'category': 'Accounting',
     'summary': 'Pagare printing commons',
     'description': """

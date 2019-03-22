@@ -13,7 +13,7 @@ class ReportPagarePrinting(models.AbstractModel):
 
     def fill_stars(self, amount_in_word):
         if amount_in_word and len(amount_in_word) < 150:
-            stars = (150 - len(amount_in_word)) / 2
+            stars = (150 - len(amount_in_word)) // 2
             return ' '.join([amount_in_word, '* ' * stars])
         else:
             return amount_in_word
