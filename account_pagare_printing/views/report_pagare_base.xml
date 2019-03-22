@@ -40,11 +40,11 @@
                                 <table width="100%" class="table table-condensed" style="border: 1px solid #dddddd;">
                                     <thead>
                                         <tr style="text-align:left;">
-                                            <th>Your Invoice</th>
-                                            <th>Invoice Date</th>
-                                            <th>Due Date</th>
-                                            <th>Our Reference</th>
-                                            <th>Payment</th>
+                                            <th class="text-center">Your Invoice</th>
+                                            <th class="text-center">Invoice Date</th>
+                                            <th class="text-center">Due Date</th>
+                                            <th class="text-center">Our Reference</th>
+                                            <th class="text-center">Payment</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -100,13 +100,11 @@
 
                 <div class="footer">
                     <div class="row">
-                        <div class="col-xs-4 col-xs-offset-8 text-center">
-                            ##<span t-field="o.amount" t-options="{'widget': 'float', 'decimal_precision': 'Product Price'}"/>##
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-xs-3 col-xs-offset-1">
                             <span t-esc="datetime.datetime.strptime(o.pagare_due_date, '%Y-%m-%d').strftime('%-d de %B de %Y')"/>
+                        </div>
+                        <div class="col-xs-4 col-xs-offset-4 text-center">
+                            ##<span t-field="o.amount" t-options="{'widget': 'float', 'decimal_precision': 'Product Price'}"/>##
                         </div>
                     </div>
                     <div class="row mt16">
@@ -115,11 +113,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-10 col-xs-offset-1">
+                        <div class="col-xs-10 col-xs-offset-1" style="padding-left: 1cm;">
                             <span t-esc="fill_stars(o.pagare_amount_in_words)"/>
                         </div>
                     </div>
-                    <div class="row mt32">
+                    <div class="row mt24">
                         <div class="col-xs-2 col-xs-offset-5 text-center">
                             <span t-esc="datetime.datetime.strptime(o.payment_date, '%Y-%m-%d').strftime('%-d')"/>
                         </div>
