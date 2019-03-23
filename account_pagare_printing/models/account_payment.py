@@ -17,11 +17,8 @@ class AccountRegisterPayments(models.TransientModel):
     @api.one
     @api.depends('invoice_ids')
     def _compute_pagare_due_date(self):
-        _logger.warning("---> _compute_pagare_due_date")
         date_due = False
-        _logger.warning("invoice_ids: %s", self.invoice_ids)
         for invoice in self.invoice_ids:
-            _logger.warning("invoice: %s", invoice)
             if not date_due:
                 date_due = invoice.date_due
             elif invoice.date_due < date_due:
@@ -54,15 +51,12 @@ class AccountRegisterPayments(models.TransientModel):
 
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
-        _logger.warning("---> _onchange_payment_method_id")
         if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare') and \
                 not self.multi:
             active_ids = self._context.get('active_ids')
             invoices = self.env['account.invoice'].browse(active_ids)
             date_due = False
-            _logger.warning("invoice_ids: %s", self.invoice_ids)
             for invoice in invoices:
-                _logger.warning("invoice: %s", invoice)
                 if not date_due:
                     date_due = invoice.date_due
                 elif invoice.date_due < date_due:
