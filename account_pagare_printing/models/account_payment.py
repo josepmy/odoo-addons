@@ -49,6 +49,13 @@ class AccountRegisterPayments(models.TransientModel):
             super(AccountRegisterPayments, self)._onchange_amount()
         self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
 
+    @api.onchange('payment_method_id')
+    def _onchange_payment_method_id(self):
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare'):
+            self._compute_pagare_due_date()
+            # active_ids = self._context.get('active_ids')
+            # invoices = self.env['account.invoice'].browse(active_ids)
+
     def _prepare_payment_vals(self, invoices):
         res = super(AccountRegisterPayments, self)._prepare_payment_vals(invoices)
         if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare'):

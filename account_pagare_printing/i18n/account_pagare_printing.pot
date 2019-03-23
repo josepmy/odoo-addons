@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 19:07+0000\n"
-"PO-Revision-Date: 2019-03-22 19:07+0000\n"
+"POT-Creation-Date: 2019-03-23 10:39+0000\n"
+"PO-Revision-Date: 2019-03-23 10:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,11 @@ msgstr ""
 #. module: account_pagare_printing
 #: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_bridge_account_id
 msgid "Account to move the ammount when the pagare is emited."
+msgstr ""
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "Amount"
 msgstr ""
 
 #. module: account_pagare_printing
@@ -86,7 +91,7 @@ msgid "ID"
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:99
+#: code:addons/account_pagare_printing/models/account_payment.py:117
 #, python-format
 msgid "In order to print multiple pagares at once, they must belong to the same bank journal."
 msgstr ""
@@ -172,6 +177,7 @@ msgstr ""
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_due_date
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_register_payments_pagare_due_date
 msgid "Pagare Due Date"
 msgstr ""
 
@@ -240,11 +246,6 @@ msgid "Pagares to print"
 msgstr ""
 
 #. module: account_pagare_printing
-#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
-msgid "Amount"
-msgstr ""
-
-#. module: account_pagare_printing
 #: model:ir.actions.report,name:account_pagare_printing.action_report_pagare_base
 msgid "Payment Pagare Base"
 msgstr ""
@@ -255,7 +256,7 @@ msgid "Payments"
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:96
+#: code:addons/account_pagare_printing/models/account_payment.py:114
 #, python-format
 msgid "Payments to print as a pagare must have 'Pagare' selected as payment method and not have already been reconciled"
 msgstr ""
@@ -281,7 +282,7 @@ msgid "Print Pagares"
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:109
+#: code:addons/account_pagare_printing/models/account_payment.py:127
 #: model:ir.model,name:account_pagare_printing.model_print_prenumbered_pagares
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view
 #, python-format
@@ -320,7 +321,7 @@ msgid "The selected journal is configured to print pagare numbers. If your pre-p
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:135
+#: code:addons/account_pagare_printing/models/account_payment.py:153
 #, python-format
 msgid "There is no pagare layout configured.\n"
 "Make sure the proper pagare printing module is installed and its configuration in the bank journal is correct."
