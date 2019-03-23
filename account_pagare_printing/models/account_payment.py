@@ -155,7 +155,7 @@ class AccountPayment(models.Model):
 
     def _get_counterpart_move_line_vals(self, invoice=None):
         vals = super(AccountPayment, self)._get_counterpart_move_line_vals(invoice)
-        _logger.warning("---> _get_move_vals: %s", vals)
+        _logger.warning("---> _get_counterpart_move_line_vals: %s", vals)
         if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
             _logger.warning("Es un pagaré... establecemos la fecha de vencimiento: %s", self.pagare_due_date)
             vals['date_maturity'] = self.pagare_due_date
@@ -168,5 +168,7 @@ class AccountPayment(models.Model):
             _logger.warning("Es un pagaré... vemos si hay cuenta puente")
             if self.journal_id.pagare_bridge_account_id:
                 _logger.warning("establecer nueva cuenta: %s", self.journal_id.pagare_bridge_account_id.name)
+                _logger.warning("y la fecha de vencimiento: %s", self.pagare_due_date)
                 vals['account_id'] = self.journal_id.pagare_bridge_account_id.id
+                vals['date_maturity'] = self.pagare_due_date
         return vals
