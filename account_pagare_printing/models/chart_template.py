@@ -14,7 +14,6 @@ class WizardMultiChartsAccounts(models.TransientModel):
         '''
         When system automatically creates journals of bank and cash type when CoA is being installed
         do not enable the `Pagare` payment method on bank journals of type `Cash`.
-
         '''
         bank_journals = super(WizardMultiChartsAccounts, self)._create_bank_journals_from_o2m(company, acc_template_ref)
         payment_method_pagare = self.env.ref('account_pagare_printing.account_payment_method_pagare')

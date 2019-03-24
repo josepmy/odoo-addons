@@ -1,33 +1,46 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_pagare_printing
-# 
+#	* account_pagare_printing
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-20 14:56+0000\n"
-"PO-Revision-Date: 2019-03-20 16:02+0100\n"
+"POT-Creation-Date: 2019-03-23 10:40+0000\n"
+"PO-Revision-Date: 2019-03-23 10:40+0000\n"
+"Last-Translator: Jose F. Fernandez\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
-"Last-Translator: Jose F. Fernandez\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 "Language: es\n"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:58
+#: code:addons/account_pagare_printing/models/account_journal.py:68
 #, python-format
-msgid " : Pagare Number Sequence"
+msgid ": Pagare Number Sequence"
 msgstr ": Secuencia de numeración de pagarés"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:69
-#, python-format
-msgid "A pagare memo cannot exceed 60 characters."
-msgstr "El memorándum del pagaré no puede exceder los 60 caracteres."
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "<span>Total</span>"
+msgstr "<span>Total</span>"
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "A la espera de que sea de su conformidad, aprovechamos la ocasión para saludarle(s) muy atentamente."
+msgstr "A la espera de que sea de su conformidad, aprovechamos la ocasión para saludarle(s) muy atentamente."
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_bridge_account_id
+msgid "Account to move the ammount when the pagare is emited."
+msgstr "Cuenta a la que se mueve el importe cuando se emite el pagaré."
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "Amount"
+msgstr "Importe"
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_amount_in_words
@@ -39,6 +52,149 @@ msgstr "Importe en palabras"
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_manual_sequencing
+#: model:ir.model.fields,help:account_pagare_printing.field_account_payment_pagare_manual_sequencing
+#: model:ir.model.fields,help:account_pagare_printing.field_account_register_payments_pagare_manual_sequencing
+msgid "Check this option if your pre-printed pagares are not numbered."
+msgstr "Marque esta opción si sus pagarés pre-impresos no están numerados."
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_create_uid
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_create_date
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_display_name
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_display_name
+#: model:ir.model.fields,field_description:account_pagare_printing.field_report_account_pagare_printing_report_pagare_base_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "Due Date"
+msgstr "Fecha vencimiento"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_id
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_id
+#: model:ir.model.fields,field_description:account_pagare_printing.field_report_account_pagare_printing_report_pagare_base_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_pagare_printing
+#: code:addons/account_pagare_printing/models/account_payment.py:117
+#, python-format
+msgid "In order to print multiple pagares at once, they must belong to the same bank journal."
+msgstr "Para poder imprimir múltiples pagarés deben pertenecer al mismo diario bancario."
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "Invoice Date"
+msgstr "Fecha factura"
+
+#. module: account_pagare_printing
+#: model:ir.model,name:account_pagare_printing.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report___last_update
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares___last_update
+#: model:ir.model.fields,field_description:account_pagare_printing.field_report_account_pagare_printing_report_pagare_base___last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_write_uid
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_write_date
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_manual_sequencing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_manual_sequencing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_register_payments_pagare_manual_sequencing
+msgid "Manual Numbering"
+msgstr "Numeración manual"
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.view_account_bank_journal_form_inherited_pagare_printing
+msgid "Manual Numbering of pagare"
+msgstr "Numeración manual de pagaré"
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "Muy señor(es) nuestro(s):<br/>\n"
+"                                <br/>\n"
+"                                Adjunto le(s) enviamos PAGARÉ nominativo número"
+msgstr "Muy señor(es) nuestro(s):<br/>\n"
+"                                <br/>\n"
+"                                Adjunto le(s) enviamos PAGARÉ nominativo número"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_next_number
+#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_next_pagare_number
+msgid "Next Pagare Number"
+msgstr "Nº próximo pagaré"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,help:account_pagare_printing.field_account_register_payments_pagare_number
+msgid "Number of the pagare corresponding to this payment. If your pre-printed pagares are not already numbered, you can manage the numbering in the journal configuration page."
+msgstr "Número del pagaré correspondiente a éste pago. Si sus pagarés pre-impresos no están ya numerados, puede configurar la numeración en la página de configuración del diario."
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "Our Reference"
+msgstr "Nuestra referencia"
+
+#. module: account_pagare_printing
+#: model:account.payment.method,name:account_pagare_printing.account_payment_method_pagare
+msgid "Pagare"
+msgstr "Pagaré"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_bridge_account_id
+msgid "Pagare Bridge Account"
+msgstr "Cuenta puente"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_due_date
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_register_payments_pagare_due_date
+msgid "Pagare Due Date"
+msgstr "Fecha vencimiento pagaré"
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.account_payment_pagare_report_form
+#: model:ir.ui.view,arch_db:account_pagare_printing.account_payment_pagare_report_tree
+msgid "Pagare Layout"
+msgstr "Formato de pagaré"
+
+#. module: account_pagare_printing
+#: model:ir.actions.act_window,name:account_pagare_printing.action_account_payment_pagare_report
+#: model:ir.ui.menu,name:account_pagare_printing.account_payment_pagare_report_menu
+msgid "Pagare Layouts"
+msgstr "Formatos de pagarés"
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_number
@@ -54,29 +210,22 @@ msgstr "Impresión de pagarés"
 #. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_printing_payment_method_selected
 msgid "Pagare Printing Payment Method Selected"
-msgstr "Método de Pago de Impresión de Pagaré Seleccionado"
+msgstr "Método de pago 'Pagaré' seleccionado"
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_sequence_id
 msgid "Pagare Sequence"
-msgstr "Secuencia de Pagarés"
+msgstr "Secuencia de pagarés"
 
 #. module: account_pagare_printing
-#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_manual_sequencing
-#: model:ir.model.fields,help:account_pagare_printing.field_account_payment_pagare_manual_sequencing
-#: model:ir.model.fields,help:account_pagare_printing.field_account_register_payments_pagare_manual_sequencing
-msgid "Check this option if your pre-printed pagares are not numbered."
-msgstr "Marque esta opción si sus pagarés pre-impresos no están numerados."
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_layout_id
+msgid "Pagare printing format"
+msgstr "Formato impresión pagarés"
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.account_journal_dashboard_kanban_view_inherited
 msgid "Pagare to print"
 msgstr "Pagaré a imprimir"
-
-#. module: account_pagare_printing
-#: model:account.payment.method,name:account_pagare_printing.account_payment_method_pagare
-msgid "Pagares"
-msgstr "Pagarés"
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.view_payment_pagare_printing_search
@@ -89,7 +238,7 @@ msgid "Pagares numbering sequence."
 msgstr "Secuencia de numeración de los pagarés."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:97
+#: code:addons/account_pagare_printing/models/account_journal.py:107
 #, python-format
 msgid "Pagares to Print"
 msgstr "Pagarés a Imprimir"
@@ -100,83 +249,9 @@ msgid "Pagares to print"
 msgstr "Pagarés a imprimir"
 
 #. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_create_uid
-msgid "Created by"
-msgstr "Creado por"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_create_date
-msgid "Created on"
-msgstr "Creado en"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_id
-msgid "ID"
-msgstr "ID (identificación)"
-
-#. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:89
-#, python-format
-msgid ""
-"In order to print multiple pagares at once, they must belong to the same bank"
-" journal."
-msgstr ""
-"Para poder imprimir múltiples pagarés de una, deben pertenecer al mismo "
-"diario bancario."
-
-#. module: account_pagare_printing
-#: model:ir.model,name:account_pagare_printing.model_account_journal
-msgid "Journal"
-msgstr "Diario"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares___last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_write_uid
-msgid "Last Updated by"
-msgstr "Última actualización de"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_write_date
-msgid "Last Updated on"
-msgstr "Última actualización en"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_manual_sequencing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_manual_sequencing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_account_register_payments_pagare_manual_sequencing
-msgid "Manual Numbering"
-msgstr "Numeración manual"
-
-#. module: account_pagare_printing
-#: model:ir.ui.view,arch_db:account_pagare_printing.view_account_bank_journal_form_inherited_pagare_printing
-msgid "Manual Numbering of pagare"
-msgstr "Numeración manual de pagaré"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_next_number
-#: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_next_pagare_number
-msgid "Next Pagare Number"
-msgstr "Nº del próximo pagaré"
-
-#. module: account_pagare_printing
-#: model:ir.model.fields,help:account_pagare_printing.field_account_register_payments_pagare_number
-msgid ""
-"Number of the pagare corresponding to this payment. If your pre-printed pagares"
-" are not already numbered, you can manage the numbering in the journal "
-"configuration page."
-msgstr ""
-"Número del pagaré correspondiente a éste pago. Si sus pagarés pre-impresos no "
-"están ya numerados, puede configurar la numeración en la página de "
-"configuración del diario."
+#: model:ir.actions.report,name:account_pagare_printing.action_report_pagare_base
+msgid "Payment Pagare Base"
+msgstr "Pagaré básico"
 
 #. module: account_pagare_printing
 #: model:ir.model,name:account_pagare_printing.model_account_payment
@@ -184,20 +259,14 @@ msgid "Payments"
 msgstr "Pagos"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:86
+#: code:addons/account_pagare_printing/models/account_payment.py:114
 #, python-format
-msgid ""
-"Payments to print as a pagares must have 'Pagare' selected as payment method "
-"and not have already been reconciled"
-msgstr ""
-"Los pagos para imprimir como pagarés deben tener \"Pagaré\" seleccionado "
-"como método de pago y no estar conciliados."
+msgid "Payments to print as a pagare must have 'Pagare' selected as payment method and not have already been reconciled"
+msgstr "Los pagos para imprimir como pagarés deben tener 'Pagaré' seleccionado como método de pago y no estar conciliados"
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view
-msgid ""
-"Please enter the number of the first pre-printed pagare that you are about to"
-" print on."
+msgid "Please enter the number of the first pre-printed pagare that you are about to print on."
 msgstr "Por favor, introduzca el número del siguiente pagaré pre-impreso."
 
 #. module: account_pagare_printing
@@ -216,7 +285,7 @@ msgid "Print Pagares"
 msgstr "Imprimir Pagarés"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:99
+#: code:addons/account_pagare_printing/models/account_payment.py:127
 #: model:ir.model,name:account_pagare_printing.model_print_prenumbered_pagares
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view
 #, python-format
@@ -229,56 +298,43 @@ msgid "Register payments on multiple invoices"
 msgstr "Registrar pagos en múltiples facturas"
 
 #. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_report
+msgid "Report name"
+msgstr "Nombre formato"
+
+#. module: account_pagare_printing
 #: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_next_number
 msgid "Sequence number of the next printed pagare."
 msgstr "Número de secuencia del próximo pagaré impreso."
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_printing_payment_method_selected
-msgid ""
-"Technical feature used to know whether pagare printing was enabled as payment"
-" method."
-msgstr ""
-"Campo técnico usado para saber si la impresión de pagarés se habilitó como "
-"método de pago."
+msgid "Technical feature used to know whether pagare printing was enabled as payment method."
+msgstr "Campo técnico usado para saber si la impresión de pagarés se habilitó como método de pago."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:26
+#: code:addons/account_pagare_printing/models/account_journal.py:29
 #, python-format
-msgid ""
-"The last pagare number was %s. In order to avoid a pagare being rejected by "
-"the bank, you can only use a greater number."
-msgstr ""
-"El último número de pagaré fue %s. Con el fin de evitar que un pagaré sea "
-"rechazado por el banco, sólo se puede utilizar un número mayor."
+msgid "The last pagare number was %s. In order to avoid a pagare being rejected by the bank, you can only use a greater number."
+msgstr "El último número de pagaré fue %s. Con el fin de evitar que un pagaré sea rechazado por el banco, sólo se puede utilizar un número mayor."
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,help:account_pagare_printing.field_account_payment_pagare_number
-msgid ""
-"The selected journal is configured to print pagare numbers. If your pre-"
-"printed pagare paper already has numbers or if the current numbering is "
-"wrong, you can change it in the journal configuration page."
-msgstr ""
-"El diario seleccionado está configurado para imprimir números de pagaré . Si"
-" sus pagarés pre-impresos ya tienen números o si la numeración actual es "
-"incorrecta, puede cambiarla en la página de configuración del diario."
+msgid "The selected journal is configured to print pagare numbers. If your pre-printed pagare paper already has numbers or if the current numbering is wrong, you can change it in the journal configuration page."
+msgstr "El diario seleccionado está configurado para imprimir números de pagaré. Si sus pagarés pre-impresos ya tienen números o si la numeración actual es incorrecta, puede cambiarla en la página de configuración del diario."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:121
+#: code:addons/account_pagare_printing/models/account_payment.py:153
 #, python-format
-msgid ""
-"There is no pagare layout configured.\n"
-"Make sure the proper pagare printing module is installed and its configuration (in company settings > 'Configuration' tab) is correct."
-msgstr ""
-"No hay una plantilla de pagarés configurada.\n"
-"Asegúrese de que está instalado el módulo de impresión de pagarés y de que su configuración (en configuración de la empresa > 'Configuración) es correcta ."
+msgid "There is no pagare layout configured.\n"
+"Make sure the proper pagare printing module is installed and its configuration in the bank journal is correct."
+msgstr "No hay una plantilla de pagarés configurada.\n"
+"Asegúrese de que está instalado el módulo de impresión de pagarés y de que su configuración en el diario del banco es correcta."
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view
-msgid ""
-"This will allow to save on payments the number of the corresponding pagare."
-msgstr ""
-"Esto permitirá guardar en los pagos el número del pagaré correspondiente."
+msgid "This will allow to save on payments the number of the corresponding pagare."
+msgstr "Esto permitirá guardar en los pagos el número del pagaré correspondiente."
 
 #. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.view_account_payment_form_inherited
@@ -286,6 +342,17 @@ msgid "Unmark Sent"
 msgstr "Desmarcar enviados"
 
 #. module: account_pagare_printing
-#: model:ir.model,name:account_pagare_printing.model_wizard_multi_charts_accounts
-msgid "wizard.multi.charts.accounts"
-msgstr "wizard.multi.charts.accounts"
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "Your Invoice"
+msgstr "Su factura"
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "de"
+msgstr "de"
+
+#. module: account_pagare_printing
+#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
+msgid "por el importe abajo indicado, para cancelar el saldo de las facturas indicadas a continuación:"
+msgstr "por el importe abajo indicado, para cancelar el saldo de las facturas indicadas a continuación:"
+

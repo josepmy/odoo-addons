@@ -6,10 +6,28 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class AccountRegisterPayments(models.TransientModel):
     _inherit = "account.register.payments"
 
+    @api.one
+    @api.depends('invoice_ids')
+    def _compute_pagare_due_date(self):
+        date_due = False
+        for invoice in self.invoice_ids:
+            if not date_due:
+                date_due = invoice.date_due
+            elif invoice.date_due < date_due:
+                date_due = invoice.date_due
+
+        self.pagare_due_date = date_due
+
+    pagare_due_date = fields.Date(string='Pagare Due Date', readonly=True, copy=False,
+                                  compute='_compute_pagare_due_date')
     pagare_amount_in_words = fields.Char(string="Amount in Words")
     pagare_manual_sequencing = fields.Boolean(related='journal_id.pagare_manual_sequencing', readonly=1)
     # Note: a pagare_number == 0 means that it will be attributed when the check is printed
@@ -31,6 +49,20 @@ class AccountRegisterPayments(models.TransientModel):
             super(AccountRegisterPayments, self)._onchange_amount()
         self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
 
+    @api.onchange('payment_method_id')
+    def _onchange_payment_method_id(self):
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare') and \
+                not self.multi:
+            active_ids = self._context.get('active_ids')
+            invoices = self.env['account.invoice'].browse(active_ids)
+            date_due = False
+            for invoice in invoices:
+                if not date_due:
+                    date_due = invoice.date_due
+                elif invoice.date_due < date_due:
+                    date_due = invoice.date_due
+            self.pagare_due_date = date_due
+
     def _prepare_payment_vals(self, invoices):
         res = super(AccountRegisterPayments, self)._prepare_payment_vals(invoices)
         if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare'):
@@ -43,6 +75,20 @@ class AccountRegisterPayments(models.TransientModel):
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
+    @api.one
+    @api.depends('invoice_ids')
+    def _compute_pagare_due_date(self):
+        date_due = False
+        for invoice in self.invoice_ids:
+            if not date_due:
+                date_due = invoice.date_due
+            elif invoice.date_due < date_due:
+                date_due = invoice.date_due
+
+        self.pagare_due_date = date_due
+
+    pagare_due_date = fields.Date(string='Pagare Due Date', readonly=True, copy=False,
+                                  compute='_compute_pagare_due_date')
     pagare_amount_in_words = fields.Char(string="Amount in Words")
     pagare_manual_sequencing = fields.Boolean(related='journal_id.pagare_manual_sequencing', readonly=1)
     pagare_number = fields.Integer(string="Pagare Number", readonly=True, copy=False,
@@ -113,6 +159,30 @@ class AccountPayment(models.Model):
 
     @api.multi
     def do_print_pagares(self):
-        """ This method is a hook for l10n_xx_pagare_printing modules to implement actual pagare printing capabilities """
+        for rec in self:
+            if rec.journal_id.pagare_layout_id:
+                return self.env['ir.actions.report']._get_report_from_name(
+                    rec.journal_id.pagare_layout_id.report
+                ).report_action(self)
         raise UserError(_("There is no pagare layout configured.\nMake sure the proper pagare printing module is "
-                          "installed and its configuration (in company settings > 'Configuration' tab) is correct."))
+                          "installed and its configuration in the bank journal is correct."))
+
+    def _get_counterpart_move_line_vals(self, invoice=None):
+        vals = super(AccountPayment, self)._get_counterpart_move_line_vals(invoice)
+        _logger.warning("---> _get_counterpart_move_line_vals: %s", vals)
+        if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
+            _logger.warning("Es un pagaré... establecemos la fecha de vencimiento: %s", self.pagare_due_date)
+            vals['date_maturity'] = self.pagare_due_date
+        return vals
+
+    def _get_liquidity_move_line_vals(self, amount):
+        vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
+        _logger.warning("---> _get_liquidity_move_line_vals: %s", vals)
+        if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
+            _logger.warning("Es un pagaré... vemos si hay cuenta puente")
+            if self.journal_id.pagare_bridge_account_id:
+                _logger.warning("establecer nueva cuenta: %s", self.journal_id.pagare_bridge_account_id.name)
+                _logger.warning("y la fecha de vencimiento: %s", self.pagare_due_date)
+                vals['account_id'] = self.journal_id.pagare_bridge_account_id.id
+                vals['date_maturity'] = self.pagare_due_date
+        return vals

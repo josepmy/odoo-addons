@@ -12,7 +12,8 @@ class AccountJournal(models.Model):
     @api.one
     @api.depends('outbound_payment_method_ids')
     def _compute_pagare_printing_payment_method_selected(self):
-        self.pagare_printing_payment_method_selected = any(pm.code == 'pagare_printing' for pm in self.outbound_payment_method_ids)
+        self.pagare_printing_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
+                                                           self.outbound_payment_method_ids)
 
     @api.one
     @api.depends('pagare_manual_sequencing')
@@ -26,18 +27,25 @@ class AccountJournal(models.Model):
     def _set_pagare_next_number(self):
         if self.pagare_next_number < self.pagare_sequence_id.number_next_actual:
             raise ValidationError(_("The last pagare number was %s. In order to avoid a pagare being rejected "
-                "by the bank, you can only use a greater number.") % self.pagare_sequence_id.number_next_actual)
+                                    "by the bank, you can only use a greater number.") %
+                                  self.pagare_sequence_id.number_next_actual)
         if self.pagare_sequence_id:
             self.pagare_sequence_id.sudo().number_next_actual = self.pagare_next_number
 
     pagare_manual_sequencing = fields.Boolean('Manual Numbering', default=False,
-        help="Check this option if your pre-printed pagares are not numbered.")
+                                              help="Check this option if your pre-printed pagares are not numbered.")
     pagare_sequence_id = fields.Many2one('ir.sequence', 'Pagare Sequence', readonly=True, copy=False,
-        help="Pagares numbering sequence.")
-    pagare_next_number = fields.Integer('Next Pagare Number', compute='_get_pagare_next_number', inverse='_set_pagare_next_number',
-        help="Sequence number of the next printed pagare.")
+                                         help="Pagares numbering sequence.")
+    pagare_next_number = fields.Integer('Next Pagare Number', compute='_get_pagare_next_number',
+                                        inverse='_set_pagare_next_number',
+                                        help="Sequence number of the next printed pagare.")
     pagare_printing_payment_method_selected = fields.Boolean(compute='_compute_pagare_printing_payment_method_selected',
-        help="Technical feature used to know whether pagare printing was enabled as payment method.")
+                                                             help="Technical feature used to know whether pagare "
+                                                                  "printing was enabled as payment method.")
+    pagare_bridge_account_id = fields.Many2one(comodel_name='account.account', string='Pagare Bridge Account',
+                                               domain=[('deprecated', '=', False)],
+                                               help="Account to move the ammount when the pagare is emited.")
+    pagare_layout_id = fields.Many2one(comodel_name='account.payment.pagare.report', string="Pagare printing format")
 
     @api.model
     def create(self, vals):
@@ -57,7 +65,7 @@ class AccountJournal(models.Model):
     def _create_pagare_sequence(self):
         """ Create a pagare sequence for the journal """
         self.pagare_sequence_id = self.env['ir.sequence'].sudo().create({
-            'name': self.name + _(" : Pagare Number Sequence"),
+            'name': self.name + _(": Pagare Number Sequence"),
             'implementation': 'no_gap',
             'padding': 5,
             'number_increment': 1,
