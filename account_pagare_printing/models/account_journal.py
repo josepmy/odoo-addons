@@ -6,14 +6,21 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
+
 class AccountJournal(models.Model):
     _inherit = "account.journal"
 
     @api.one
     @api.depends('outbound_payment_method_ids')
-    def _compute_pagare_printing_payment_method_selected(self):
-        self.pagare_printing_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
-                                                           self.outbound_payment_method_ids)
+    def _compute_pagare_printing_outbound_payment_method_selected(self):
+        self._compute_pagare_printing_outbound_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
+                                                                             self.outbound_payment_method_ids)
+
+    @api.one
+    @api.depends('outbound_payment_method_ids')
+    def _compute_pagare_printing_inbound_payment_method_selected(self):
+        self.pagare_printing_inbound_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
+                                                                   self.inbound_payment_method_ids)
 
     @api.one
     @api.depends('pagare_manual_sequencing')
@@ -39,12 +46,16 @@ class AccountJournal(models.Model):
     pagare_next_number = fields.Integer('Next Pagare Number', compute='_get_pagare_next_number',
                                         inverse='_set_pagare_next_number',
                                         help="Sequence number of the next printed pagare.")
-    pagare_printing_payment_method_selected = fields.Boolean(compute='_compute_pagare_printing_payment_method_selected',
-                                                             help="Technical feature used to know whether pagare "
-                                                                  "printing was enabled as payment method.")
-    pagare_bridge_account_id = fields.Many2one(comodel_name='account.account', string='Pagare Bridge Account',
-                                               domain=[('deprecated', '=', False)],
-                                               help="Account to move the ammount when the pagare is emited.")
+    pagare_printing_outbound_payment_method_selected = fields.Boolean(
+        compute='_compute_pagare_printing_outbound_payment_method_selected',
+        help="Technical feature used to know whether pagare printing was enabled as outbound payment method.")
+    pagare_printing_inbound_payment_method_selected = fields.Boolean(
+        compute='_compute_pagare_printing_inbound_payment_method_selected',
+        help="Technical feature used to know whether pagare printing was enabled as inbound payment method.")
+    pagare_outbound_bridge_account_id = fields.Many2one(comodel_name='account.account', string='Pagare Bridge Account',
+                                                        domain=[('deprecated', '=', False)],
+                                                        help="Account to move the ammount when the pagare is emited.",
+                                                        oldname="pagare_bridge_account_id")
     pagare_layout_id = fields.Many2one(comodel_name='account.payment.pagare.report', string="Pagare printing format")
 
     @api.model

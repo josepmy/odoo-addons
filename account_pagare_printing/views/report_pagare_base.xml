@@ -31,7 +31,11 @@
                             <div class="col-xs-12">
                                 Muy señor(es) nuestro(s):<br/>
                                 <br/>
-                                Adjunto le(s) enviamos PAGARÉ nominativo número <span t-field="o.pagare_number"/> de <span t-field="o.journal_id"/> por el importe abajo indicado, para cancelar el saldo de las facturas indicadas a continuación:
+                                Adjunto le(s) enviamos PAGARÉ nominativo número <span t-field="o.pagare_number"/>
+                                <t t-if="o.journal_id.bank_id">
+                                    de <span t-field="o.journal_id.bank_id.name"/>
+                                </t>
+                                por el importe abajo indicado, para cancelar el saldo de las facturas indicadas a continuación:
                             </div>
                         </div>
 
