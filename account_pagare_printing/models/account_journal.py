@@ -13,8 +13,8 @@ class AccountJournal(models.Model):
     @api.one
     @api.depends('outbound_payment_method_ids')
     def _compute_pagare_printing_outbound_payment_method_selected(self):
-        self._compute_pagare_printing_outbound_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
-                                                                             self.outbound_payment_method_ids)
+        self.pagare_printing_outbound_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
+                                                                    self.outbound_payment_method_ids)
 
     @api.one
     @api.depends('outbound_payment_method_ids')
