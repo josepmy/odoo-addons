@@ -52,10 +52,15 @@ class AccountJournal(models.Model):
     pagare_printing_inbound_payment_method_selected = fields.Boolean(
         compute='_compute_pagare_printing_inbound_payment_method_selected',
         help="Technical feature used to know whether pagare printing was enabled as inbound payment method.")
-    pagare_outbound_bridge_account_id = fields.Many2one(comodel_name='account.account', string='Pagare Bridge Account',
+    pagare_outbound_bridge_account_id = fields.Many2one(comodel_name='account.account',
+                                                        string='Outbound Pagare Bridge Account',
                                                         domain=[('deprecated', '=', False)],
-                                                        help="Account to move the ammount when the pagare is emited.",
+                                                        help="Account to move the ammount when the pagare is emitted.",
                                                         oldname="pagare_bridge_account_id")
+    pagare_inbound_bridge_account_id = fields.Many2one(comodel_name='account.account',
+                                                       string='Inbound Pagare Bridge Account',
+                                                       domain=[('deprecated', '=', False)],
+                                                       help="Account to move the ammount when the pagare is received.")
     pagare_layout_id = fields.Many2one(comodel_name='account.payment.pagare.report', string="Pagare printing format")
 
     @api.model
@@ -85,25 +90,32 @@ class AccountJournal(models.Model):
 
     def _default_outbound_payment_methods(self):
         methods = super(AccountJournal, self)._default_outbound_payment_methods()
-        return methods + self.env.ref('account_pagare_printing.account_payment_method_pagare')
+        return methods + self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare')
+
+    def _default_inbound_payment_methods(self):
+        methods = super(AccountJournal, self)._default_inbound_payment_methods()
+        return methods + self.env.ref('account_pagare_printing.account_payment_method_inbound_pagare')
 
     @api.model
     def _enable_pagare_printing_on_bank_journals(self):
         """ Enables pagare printing payment method and add a pagare sequence on bank journals.
             Called upon module installation via data file.
         """
-        pagare_printing = self.env.ref('account_pagare_printing.account_payment_method_pagare')
+        pagare_outbound_printing = self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare')
+        pagare_inbound_printing = self.env.ref('account_pagare_printing.account_payment_method_inbound_pagare')
         bank_journals = self.search([('type', '=', 'bank')])
         for bank_journal in bank_journals:
             bank_journal._create_pagare_sequence()
             bank_journal.write({
-                'outbound_payment_method_ids': [(4, pagare_printing.id, None)],
+                'outbound_payment_method_ids': [(4, pagare_outbound_printing.id, None)],
+                'inbound_payment_method_ids': [(4, pagare_inbound_printing.id, None)],
             })
 
     @api.multi
     def get_journal_dashboard_datas(self):
         domain_pagares_to_print = [
             ('journal_id', '=', self.id),
+            ('payment_type', '=', 'outbound'),
             ('payment_method_id.code', '=', 'pagare_printing'),
             ('state', '=', 'posted')
         ]
@@ -125,6 +137,6 @@ class AccountJournal(models.Model):
                 journal_id=self.id,
                 default_journal_id=self.id,
                 default_payment_type='outbound',
-                default_payment_method_id=self.env.ref('account_pagare_printing.account_payment_method_pagare').id,
+                default_payment_method_id=self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare').id,
             ),
         }

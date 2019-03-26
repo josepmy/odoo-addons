@@ -16,8 +16,10 @@ class WizardMultiChartsAccounts(models.TransientModel):
         do not enable the `Pagare` payment method on bank journals of type `Cash`.
         '''
         bank_journals = super(WizardMultiChartsAccounts, self)._create_bank_journals_from_o2m(company, acc_template_ref)
-        payment_method_pagare = self.env.ref('account_pagare_printing.account_payment_method_pagare')
+        payment_method_outbound_pagare = self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare')
+        payment_method_inbound_pagare = self.env.ref('account_pagare_printing.account_payment_method_inbound_pagare')
         bank_journals.filtered(lambda journal: journal.type == 'cash').write({
-            'outbound_payment_method_ids': [(3, payment_method_pagare.id)]
+            'outbound_payment_method_ids': [(3, payment_method_outbound_pagare.id)],
+            'inbound_payment_method_ids': [(3, payment_method_inbound_pagare.id)]
         })
         return bank_journals

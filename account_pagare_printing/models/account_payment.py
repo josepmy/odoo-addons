@@ -38,7 +38,7 @@ class AccountRegisterPayments(models.TransientModel):
 
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
-        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare') and \
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare') and \
                 not self.multi:
             active_ids = self._context.get('active_ids')
             invoices = self.env['account.invoice'].browse(active_ids)
@@ -52,7 +52,7 @@ class AccountRegisterPayments(models.TransientModel):
 
     def _prepare_payment_vals(self, invoices):
         res = super(AccountRegisterPayments, self)._prepare_payment_vals(invoices)
-        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare'):
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
             res.update({
                 'pagare_amount_in_words': self.currency_id.amount_to_text(res['amount']) if self.multi else self.pagare_amount_in_words,
             })
@@ -86,7 +86,7 @@ class AccountPayment(models.Model):
 
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
-        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_pagare'):
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
             date_due = False
             for invoice in self.invoice_ids:
                 if not date_due:
@@ -97,7 +97,7 @@ class AccountPayment(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals['payment_method_id'] == self.env.ref('account_pagare_printing.account_payment_method_pagare').id:
+        if vals['payment_method_id'] == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare').id:
             journal = self.env['account.journal'].browse(vals['journal_id'])
             if journal.pagare_manual_sequencing:
                 vals.update({'pagare_number': journal.pagare_sequence_id.next_by_id()})
