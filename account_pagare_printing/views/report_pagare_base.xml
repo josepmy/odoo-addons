@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="footer">
-                    <div class="row">
+                    <div class="row" style="margin-top: 0.5cm;">
                         <div class="col-xs-3 col-xs-offset-2">
                             <span t-esc="datetime.datetime.strptime(o.pagare_due_date, '%Y-%m-%d').strftime('%-d de %B de %Y')"/>
                         </div>
