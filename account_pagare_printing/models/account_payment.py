@@ -38,21 +38,26 @@ class AccountRegisterPayments(models.TransientModel):
         if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
             self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
 
+    def _compute_pagare_due_date(self, invoices):
+        date_due = False
+        for invoice in invoices:
+            if not date_due:
+                date_due = invoice.date_due
+            elif invoice.date_due < date_due:
+                date_due = invoice.date_due
+
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
         if self.payment_method_id.code == 'pagare_printing' and not self.multi:
             active_ids = self._context.get('active_ids')
             invoices = self.env['account.invoice'].browse(active_ids)
-            date_due = False
-            for invoice in invoices:
-                if not date_due:
-                    date_due = invoice.date_due
-                elif invoice.date_due < date_due:
-                    date_due = invoice.date_due
-            self.pagare_due_date = date_due
+            self.pagare_due_date = self._compute_pagare_due_date(invoices)
 
     def _prepare_payment_vals(self, invoices):
         res = super(AccountRegisterPayments, self)._prepare_payment_vals(invoices)
+        res.update({
+            'pagare_due_date': self.pagare_due_date or self._compute_pagare_due_date(invoices),
+        })
         if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
             res.update({
                 'pagare_amount_in_words': self.currency_id.amount_to_text(res['amount']) if self.multi else self.pagare_amount_in_words,
@@ -63,6 +68,7 @@ class AccountRegisterPayments(models.TransientModel):
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
+    state = fields.Selection(selection_add=[('received', 'Received')])
     pagare_due_date = fields.Date(string='Pagare Due Date')
     pagare_amount_in_words = fields.Char(string="Amount in Words")
     pagare_manual_sequencing = fields.Boolean(related='journal_id.pagare_manual_sequencing', readonly=1)
@@ -76,13 +82,15 @@ class AccountPayment(models.Model):
     def _onchange_journal_id(self):
         if hasattr(super(AccountPayment, self), '_onchange_journal_id'):
             super(AccountPayment, self)._onchange_journal_id()
-        if self.journal_id.pagare_manual_sequencing:
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare') \
+                and self.journal_id.pagare_manual_sequencing:
             self.pagare_number = self.journal_id.pagare_sequence_id.number_next_actual
 
     @api.onchange('amount', 'currency_id')
     def _onchange_amount(self):
         res = super(AccountPayment, self)._onchange_amount()
-        self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount) if self.currency_id else ''
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
+            self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount) if self.currency_id else ''
         return res
 
     @api.onchange('payment_method_id')
@@ -163,7 +171,7 @@ class AccountPayment(models.Model):
 
     def _get_liquidity_move_line_vals(self, amount):
         vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
-        if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
+        if self.payment_method_id.code == 'pagare_printing':
             vals['date_maturity'] = self.pagare_due_date
             if self.payment_type == 'outbound':
                 vals['name'] = _('Emitted pagare: %s') % self.pagare_number
@@ -174,3 +182,20 @@ class AccountPayment(models.Model):
                 if self.journal_id.pagare_inbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_inbound_bridge_account_id.id
         return vals
+
+    @api.multi
+    def post(self):
+        for rec in self:
+            if rec.state != 'draft':
+                raise UserError(_("Only a draft payment can be posted."))
+            if any(inv.state != 'open' for inv in rec.invoice_ids):
+                raise ValidationError(_("The payment cannot be processed because the invoice is not open!"))
+            # keep the name in case of a payment reset to draft
+            if not rec.name:
+                if rec.payment_method_id.code == 'pagare_printing':
+                    if rec.payment_type == 'outbound':
+                        rec.name = _('Emitted pagare: %s') % rec.pagare_number
+                    elif rec.payment_type == 'inbound':
+                        rec.name = _('Received pagare: %s') % rec.pagare_number
+
+        return super(AccountPayment, self).post()

@@ -4,12 +4,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Pagare Printing Base',
-    'version': "11.0.1.0.4",
+    'name': 'Pagare Payment and Printing',
+    'version': "11.0.1.1.6",
     'category': 'Accounting',
-    'summary': 'Pagare printing commons',
+    'summary': 'Pagare payment methods and pagare printing',
     'description': """
-This module offers the basic functionalities to make payments by printing pagares.
+This module adds outbound and inbound pagare payment methods. You can also print your emitted pagares.
 The pagare settings are located in the accounting journals configuration page.
     """,
     'license': 'AGPL-3',
