@@ -36,14 +36,16 @@
                     <field name="pagare_printing_inbound_payment_method_selected" invisible="1"/>
                     <field name="pagare_printing_outbound_payment_method_selected" invisible="1"/>
                     <field name="pagare_sequence_id" invisible="1"/>
-                    <field name="pagare_manual_sequencing"/>
-                    <field name="pagare_next_number" attrs="{'invisible': [('pagare_manual_sequencing', '=', False)]}"/>
-                    <field name="pagare_outbound_bridge_account_id"/>
-                    <field name="pagare_layout_id"/>
+                    <field name="pagare_manual_sequencing" attrs="{'invisible': [('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
+                    <field name="pagare_next_number" attrs="{'invisible': ['|', ('pagare_manual_sequencing', '=', False), ('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
+                    <field name="pagare_outbound_bridge_account_id" attrs="{'invisible': [('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
+                    <field name="pagare_layout_id" attrs="{'invisible': [('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
+                    <field name="pagare_inbound_bridge_account_id" attrs="{'invisible': [('pagare_printing_inbound_payment_method_selected', '=', False)]}"/>
                 </group>
             </xpath>
         </field>
     </record>
+
     <record id="view_account_bank_journal_form_inherited_pagare_printing" model="ir.ui.view">
         <field name="name">account.bank.journal.form.inherited.pagare.printing</field>
         <field name="model">account.journal</field>
@@ -54,8 +56,9 @@
                 <field name="pagare_printing_outbound_payment_method_selected" invisible="1"/>
                 <field name="pagare_sequence_id" invisible="1"/>
                 <field name="pagare_manual_sequencing" string="Manual Numbering of pagare" attrs="{'invisible': [('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
-                <field name="pagare_next_number" attrs="{'invisible': [('pagare_manual_sequencing', '=', False)]}"/>
+                <field name="pagare_next_number" attrs="{'invisible': ['|', ('pagare_manual_sequencing', '=', False), ('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
             </xpath>
         </field>
     </record>
+
 </odoo>

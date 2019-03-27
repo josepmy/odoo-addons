@@ -27,19 +27,20 @@ class AccountRegisterPayments(models.TransientModel):
     def _onchange_journal_id(self):
         if hasattr(super(AccountRegisterPayments, self), '_onchange_journal_id'):
             super(AccountRegisterPayments, self)._onchange_journal_id()
-        if self.journal_id.pagare_manual_sequencing:
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare') \
+                and self.journal_id.pagare_manual_sequencing:
             self.pagare_number = self.journal_id.pagare_sequence_id.number_next_actual
 
     @api.onchange('amount')
     def _onchange_amount(self):
         if hasattr(super(AccountRegisterPayments, self), '_onchange_amount'):
             super(AccountRegisterPayments, self)._onchange_amount()
-        self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
+        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
+            self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
 
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
-        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare') and \
-                not self.multi:
+        if self.payment_method_id.code == 'pagare_printing' and not self.multi:
             active_ids = self._context.get('active_ids')
             invoices = self.env['account.invoice'].browse(active_ids)
             date_due = False
@@ -86,7 +87,7 @@ class AccountPayment(models.Model):
 
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
-        if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
+        if self.payment_method_id.code == 'pagare_printing':
             date_due = False
             for invoice in self.invoice_ids:
                 if not date_due:
@@ -107,10 +108,12 @@ class AccountPayment(models.Model):
     def print_pagares(self):
         """ Check that the recordset is valid, set the payments state to sent and call print_pagares() """
         # Since this method can be called via a client_action_multi, we need to make sure the received records are what we expect
-        self = self.filtered(lambda r: r.payment_method_id.code == 'pagare_printing' and r.state != 'reconciled')
+        self = self.filtered(lambda r: r.payment_method_id.code == 'pagare_printing' and
+                                       r.payment_type == 'outbound' and
+                                       r.state != 'reconciled')
 
         if len(self) == 0:
-            raise UserError(_("Payments to print as a pagare must have 'Pagare' selected as payment method and "
+            raise UserError(_("Payments to print as a pagare must have 'Emitted Pagare' selected as payment method and "
                               "not have already been reconciled"))
         if any(payment.journal_id != self[0].journal_id for payment in self):
             raise UserError(_("In order to print multiple pagares at once, they must belong to the same bank journal."))
@@ -154,7 +157,7 @@ class AccountPayment(models.Model):
 
     def _get_counterpart_move_line_vals(self, invoice=None):
         vals = super(AccountPayment, self)._get_counterpart_move_line_vals(invoice)
-        if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
+        if self.payment_method_id.code == 'pagare_printing':
             vals['date_maturity'] = self.pagare_due_date
         return vals
 
@@ -162,7 +165,12 @@ class AccountPayment(models.Model):
         vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
         if self.payment_type == 'outbound' and self.payment_method_id.code == 'pagare_printing':
             vals['date_maturity'] = self.pagare_due_date
-            vals['name'] = _('Emitted pagare: %s') % self.pagare_number
-            if self.journal_id.pagare_outbound_bridge_account_id:
-                vals['account_id'] = self.journal_id.pagare_outbound_bridge_account_id.id
+            if self.payment_type == 'outbound':
+                vals['name'] = _('Emitted pagare: %s') % self.pagare_number
+                if self.journal_id.pagare_outbound_bridge_account_id:
+                    vals['account_id'] = self.journal_id.pagare_outbound_bridge_account_id.id
+            elif self.payment_type == 'inbound':
+                vals['name'] = _('Received pagare: %s') % self.pagare_number
+                if self.journal_id.pagare_inbound_bridge_account_id:
+                    vals['account_id'] = self.journal_id.pagare_inbound_bridge_account_id.id
         return vals
