@@ -11,15 +11,17 @@ class AccountJournal(models.Model):
     _inherit = "account.journal"
 
     @api.one
-    @api.depends('outbound_payment_method_ids')
+    @api.depends('type', 'outbound_payment_method_ids')
     def _compute_pagare_printing_outbound_payment_method_selected(self):
-        self.pagare_printing_outbound_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
+        self.pagare_printing_outbound_payment_method_selected = self.type in ('bank', 'cash') and \
+                                                                any(pm.code == 'pagare_printing' for pm in
                                                                     self.outbound_payment_method_ids)
 
     @api.one
-    @api.depends('inbound_payment_method_ids')
+    @api.depends('type', 'inbound_payment_method_ids')
     def _compute_pagare_printing_inbound_payment_method_selected(self):
-        self.pagare_printing_inbound_payment_method_selected = any(pm.code == 'pagare_printing' for pm in
+        self.pagare_printing_inbound_payment_method_selected = self.type in ('bank', 'cash') and \
+                                                               any(pm.code == 'pagare_printing' for pm in
                                                                    self.inbound_payment_method_ids)
 
     @api.one

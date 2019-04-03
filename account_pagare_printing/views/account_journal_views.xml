@@ -32,7 +32,7 @@
         <field name="inherit_id" ref="account.view_account_journal_form" />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='advanced_settings']/group" position="inside">
-                <group string="Pagare Printing" attrs="{'invisible': [('pagare_printing_inbound_payment_method_selected', '!=', True), ('pagare_printing_outbound_payment_method_selected', '!=', True)]}">
+                <group string="Pagare Printing" attrs="{'invisible': [('pagare_printing_inbound_payment_method_selected', '=', False), ('pagare_printing_outbound_payment_method_selected', '=', False)]}">
                     <field name="pagare_printing_inbound_payment_method_selected" invisible="1"/>
                     <field name="pagare_printing_outbound_payment_method_selected" invisible="1"/>
                     <field name="pagare_sequence_id" invisible="1"/>

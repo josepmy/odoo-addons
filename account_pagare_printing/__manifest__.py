@@ -5,7 +5,7 @@
 
 {
     'name': 'Pagare Payment and Printing',
-    'version': "11.0.1.1.6",
+    'version': "11.0.1.2.8",
     'category': 'Accounting',
     'summary': 'Pagare payment methods and pagare printing',
     'description': """

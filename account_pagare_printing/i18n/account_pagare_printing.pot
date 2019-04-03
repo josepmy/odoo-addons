@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 10:39+0000\n"
-"PO-Revision-Date: 2019-03-23 10:39+0000\n"
+"POT-Creation-Date: 2019-04-03 00:50+0000\n"
+"PO-Revision-Date: 2019-04-03 00:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:68
+#: code:addons/account_pagare_printing/models/account_journal.py:86
 #, python-format
 msgid ": Pagare Number Sequence"
 msgstr ""
@@ -33,7 +33,12 @@ msgstr ""
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_outbound_bridge_account_id
-msgid "Account to move the ammount when the pagare is emited."
+msgid "Account to move the ammount when the pagare is emitted."
+msgstr ""
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_inbound_bridge_account_id
+msgid "Account to move the ammount when the pagare is received."
 msgstr ""
 
 #. module: account_pagare_printing
@@ -84,6 +89,19 @@ msgid "Due Date"
 msgstr ""
 
 #. module: account_pagare_printing
+#: model:account.payment.method,name:account_pagare_printing.account_payment_method_outbound_pagare
+msgid "Emitted Pagare"
+msgstr ""
+
+#. module: account_pagare_printing
+#: code:addons/account_pagare_printing/models/account_payment.py:163
+#: code:addons/account_pagare_printing/models/account_payment.py:196
+#: code:addons/account_pagare_printing/models/account_payment.py:216
+#, python-format
+msgid "Emitted pagare: %d"
+msgstr ""
+
+#. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report_id
 #: model:ir.model.fields,field_description:account_pagare_printing.field_print_prenumbered_pagares_id
 #: model:ir.model.fields,field_description:account_pagare_printing.field_report_account_pagare_printing_report_pagare_base_id
@@ -91,9 +109,14 @@ msgid "ID"
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:117
+#: code:addons/account_pagare_printing/models/account_payment.py:132
 #, python-format
 msgid "In order to print multiple pagares at once, they must belong to the same bank journal."
+msgstr ""
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_inbound_bridge_account_id
+msgid "Inbound Pagare Bridge Account"
 msgstr ""
 
 #. module: account_pagare_printing
@@ -161,18 +184,19 @@ msgid "Number of the pagare corresponding to this payment. If your pre-printed p
 msgstr ""
 
 #. module: account_pagare_printing
+#: code:addons/account_pagare_printing/models/account_payment.py:209
+#, python-format
+msgid "Only a draft payment can be posted."
+msgstr ""
+
+#. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
 msgid "Our Reference"
 msgstr ""
 
 #. module: account_pagare_printing
-#: model:account.payment.method,name:account_pagare_printing.account_payment_method_pagare
-msgid "Pagare"
-msgstr ""
-
-#. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_outbound_bridge_account_id
-msgid "Pagare Bridge Account"
+msgid "Outbound Pagare Bridge Account"
 msgstr ""
 
 #. module: account_pagare_printing
@@ -205,8 +229,13 @@ msgid "Pagare Printing"
 msgstr ""
 
 #. module: account_pagare_printing
-#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_printing_payment_method_selected
-msgid "Pagare Printing Payment Method Selected"
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_printing_inbound_payment_method_selected
+msgid "Pagare Printing Inbound Payment Method Selected"
+msgstr ""
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_printing_outbound_payment_method_selected
+msgid "Pagare Printing Outbound Payment Method Selected"
 msgstr ""
 
 #. module: account_pagare_printing
@@ -235,7 +264,7 @@ msgid "Pagares numbering sequence."
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:107
+#: code:addons/account_pagare_printing/models/account_journal.py:132
 #, python-format
 msgid "Pagares to Print"
 msgstr ""
@@ -256,9 +285,9 @@ msgid "Payments"
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:114
+#: code:addons/account_pagare_printing/models/account_payment.py:129
 #, python-format
-msgid "Payments to print as a pagare must have 'Pagare' selected as payment method and not have already been reconciled"
+msgid "Payments to print as a pagare must have 'Emitted Pagare' selected as payment method and not have already been reconciled"
 msgstr ""
 
 #. module: account_pagare_printing
@@ -282,11 +311,24 @@ msgid "Print Pagares"
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:127
+#: code:addons/account_pagare_printing/models/account_payment.py:142
 #: model:ir.model,name:account_pagare_printing.model_print_prenumbered_pagares
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view
 #, python-format
 msgid "Print Pre-numbered Pagares"
+msgstr ""
+
+#. module: account_pagare_printing
+#: model:account.payment.method,name:account_pagare_printing.account_payment_method_inbound_pagare
+msgid "Received Pagare"
+msgstr ""
+
+#. module: account_pagare_printing
+#: code:addons/account_pagare_printing/models/account_payment.py:167
+#: code:addons/account_pagare_printing/models/account_payment.py:200
+#: code:addons/account_pagare_printing/models/account_payment.py:218
+#, python-format
+msgid "Received pagare: %d"
 msgstr ""
 
 #. module: account_pagare_printing
@@ -305,14 +347,25 @@ msgid "Sequence number of the next printed pagare."
 msgstr ""
 
 #. module: account_pagare_printing
-#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_printing_payment_method_selected
-msgid "Technical feature used to know whether pagare printing was enabled as payment method."
+#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_printing_inbound_payment_method_selected
+msgid "Technical feature used to know whether pagare printing was enabled as inbound payment method."
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:29
+#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_printing_outbound_payment_method_selected
+msgid "Technical feature used to know whether pagare printing was enabled as outbound payment method."
+msgstr ""
+
+#. module: account_pagare_printing
+#: code:addons/account_pagare_printing/models/account_journal.py:38
 #, python-format
 msgid "The last pagare number was %s. In order to avoid a pagare being rejected by the bank, you can only use a greater number."
+msgstr ""
+
+#. module: account_pagare_printing
+#: code:addons/account_pagare_printing/models/account_payment.py:211
+#, python-format
+msgid "The payment cannot be processed because the invoice is not open!"
 msgstr ""
 
 #. module: account_pagare_printing
@@ -321,7 +374,7 @@ msgid "The selected journal is configured to print pagare numbers. If your pre-p
 msgstr ""
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:153
+#: code:addons/account_pagare_printing/models/account_payment.py:182
 #, python-format
 msgid "There is no pagare layout configured.\n"
 "Make sure the proper pagare printing module is installed and its configuration in the bank journal is correct."
@@ -351,5 +404,4 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
 msgid "por el importe abajo indicado, para cancelar el saldo de las facturas indicadas a continuación:"
 msgstr ""
-
 

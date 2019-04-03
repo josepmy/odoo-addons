@@ -19,6 +19,6 @@ class PrintPreNumberedPagares(models.TransientModel):
         payments.filtered(lambda r: r.state == 'draft').post()
         payments.filtered(lambda r: r.state not in ('sent', 'cancelled')).write({'state': 'sent'})
         for payment in payments:
-            payment.pagare_number = pagare_number
+            payment.set_pagare_number_from_printing(pagare_number)
             pagare_number += 1
         return payments.do_print_pagares()

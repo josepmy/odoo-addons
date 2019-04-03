@@ -45,6 +45,7 @@ class AccountRegisterPayments(models.TransientModel):
                 date_due = invoice.date_due
             elif invoice.date_due < date_due:
                 date_due = invoice.date_due
+        return date_due
 
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
@@ -52,6 +53,8 @@ class AccountRegisterPayments(models.TransientModel):
             active_ids = self._context.get('active_ids')
             invoices = self.env['account.invoice'].browse(active_ids)
             self.pagare_due_date = self._compute_pagare_due_date(invoices)
+            if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
+                self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
 
     def _prepare_payment_vals(self, invoices):
         res = super(AccountRegisterPayments, self)._prepare_payment_vals(invoices)
@@ -103,6 +106,8 @@ class AccountPayment(models.Model):
                 elif invoice.date_due < date_due:
                     date_due = invoice.date_due
             self.pagare_due_date = date_due
+            if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
+                self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
 
     @api.model
     def create(self, vals):
@@ -149,6 +154,20 @@ class AccountPayment(models.Model):
             self.filtered(lambda r: r.state == 'draft').post()
             return self.do_print_pagares()
 
+    def set_pagare_number_from_printing(self, pagare_number):
+        self.pagare_number = pagare_number
+        account = self.payment_type in (
+            'outbound', 'transfer'
+        ) and self.journal_id.default_debit_account_id.id or self.journal_id.default_credit_account_id.id
+        if self.payment_type == 'outbound':
+            self.name = _('Emitted pagare: %d') % pagare_number
+            account = self.journal_id.pagare_outbound_bridge_account_id or self.journal_id.account_id
+            self.move_line_ids.filtered(lambda m: m.account_id == account).name = self.name
+        elif self.payment_type == 'inbound':
+            self.name = _('Received pagare: %d') % pagare_number
+            account = self.journal_id.pagare_inbound_bridge_account_id or self.journal_id.account_id
+            self.move_line_ids.filtered(lambda m: m.account_id == account).name = self.name
+
     @api.multi
     def unmark_sent(self):
         self.write({'state': 'posted'})
@@ -174,11 +193,11 @@ class AccountPayment(models.Model):
         if self.payment_method_id.code == 'pagare_printing':
             vals['date_maturity'] = self.pagare_due_date
             if self.payment_type == 'outbound':
-                vals['name'] = _('Emitted pagare: %s') % self.pagare_number
+                vals['name'] = _('Emitted pagare: %d') % self.pagare_number
                 if self.journal_id.pagare_outbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_outbound_bridge_account_id.id
             elif self.payment_type == 'inbound':
-                vals['name'] = _('Received pagare: %s') % self.pagare_number
+                vals['name'] = _('Received pagare: %d') % self.pagare_number
                 if self.journal_id.pagare_inbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_inbound_bridge_account_id.id
         return vals
@@ -194,8 +213,8 @@ class AccountPayment(models.Model):
             if not rec.name:
                 if rec.payment_method_id.code == 'pagare_printing':
                     if rec.payment_type == 'outbound':
-                        rec.name = _('Emitted pagare: %s') % rec.pagare_number
+                        rec.name = _('Emitted pagare: %d') % rec.pagare_number
                     elif rec.payment_type == 'inbound':
-                        rec.name = _('Received pagare: %s') % rec.pagare_number
+                        rec.name = _('Received pagare: %d') % rec.pagare_number
 
         return super(AccountPayment, self).post()
