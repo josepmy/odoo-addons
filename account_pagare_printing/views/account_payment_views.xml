@@ -51,7 +51,7 @@
             </xpath>
             <xpath expr="//field[@name='communication']" position="after">
                 <field name="pagare_manual_sequencing" invisible="1" readonly="1"/>
-                <field name="pagare_due_date" attrs="{'invisible': ['|', ('multi', '=', True), ('payment_method_code', '!=', 'pagare_printing')]}"/>
+                <field name="pagare_due_date" attrs="{'invisible': [('payment_method_code', '!=', 'pagare_printing')]}"/>
                 <field name="pagare_number" attrs="{'invisible': ['|', ('payment_method_code', '!=', 'pagare_printing'), ('pagare_manual_sequencing', '=', False)]}"/>
             </xpath>
         </field>

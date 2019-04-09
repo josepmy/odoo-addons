@@ -84,11 +84,6 @@ msgid "Display Name"
 msgstr "Nombre a mostrar"
 
 #. module: account_pagare_printing
-#: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
-msgid "Due Date"
-msgstr "Fecha vencimiento"
-
-#. module: account_pagare_printing
 #: model:account.payment.method,name:account_pagare_printing.account_payment_method_outbound_pagare
 msgid "Emitted Pagare"
 msgstr "Pagaré emitido"

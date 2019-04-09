@@ -46,7 +46,6 @@
                                         <tr style="text-align:left;">
                                             <th class="text-center">Your Invoice</th>
                                             <th class="text-center">Invoice Date</th>
-                                            <th class="text-center">Due Date</th>
                                             <th class="text-center">Our Reference</th>
                                             <th class="text-center">Amount</th>
                                         </tr>
@@ -61,9 +60,6 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <span t-esc="line['date']" t-esc-options="{'widget': 'date'}"/>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span t-esc="line['date_due']" t-esc-options="{'widget': 'date'}"/>
                                                 </td>
                                                 <td class="text-center">
                                                     <span t-esc="line['number']"/>
