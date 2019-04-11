@@ -52,7 +52,7 @@ Incidencias conocidas / Hoja de ruta
 Gestión de errores
 ==================
 
-Los errores/fallos se gestionan en `las incidencias de GitHub <https://github.com/fenix-es/odoo-addons/issues>`_.
+Los errores/fallos se gestionan a través de `incidencias de GitHub <https://github.com/fenix-es/odoo-addons/issues>`_.
 En caso de problemas, compruebe por favor si su incidencia ha sido ya
 reportada. Si fue el primero en descubrirla, ayúdenos a solucionarla suministrando
 información detallada de la misma
@@ -70,10 +70,9 @@ Contribuidores
 Maintainer
 ----------
 
-.. image:: https://www.fenix-es.com/logo.png
+.. image:: https://www.fenix-es.com/logo.png?_22321
    :alt: Fenix Engineering Solutions
    :target: https://www.fenix-es.com
-
 
 This module is maintained by Fenix Engineering Solutions.
 

@@ -5,7 +5,7 @@
 
 {
     'name': 'Pagare Payment and Printing',
-    'version': "11.0.1.2.8",
+    'version': "11.0.1.2.9",
     'category': 'Accounting',
     'summary': 'Pagare payment methods and pagare printing',
     'description': """
@@ -16,6 +16,9 @@ The pagare settings are located in the accounting journals configuration page.
     'author': "Fenix Engineering Solutions",
     'website': "http://www.fenix-es.com",
     'depends': ['account', ],
+    'images': [
+        'static/description/cover.png'
+    ],
     'data': [
         'security/ir.model.access.csv',
         'data/report_paperformat.xml',
