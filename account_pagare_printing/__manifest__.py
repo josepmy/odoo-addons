@@ -15,10 +15,10 @@ The pagare settings are located in the accounting journals configuration page.
     'license': 'AGPL-3',
     'author': "Fenix Engineering Solutions",
     'website': "http://www.fenix-es.com",
-    'depends': ['account', ],
     'images': [
         'static/description/cover.png'
     ],
+    'depends': ['account', ],
     'data': [
         'security/ir.model.access.csv',
         'data/report_paperformat.xml',
