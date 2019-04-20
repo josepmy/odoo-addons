@@ -2,11 +2,11 @@
 # Copyright 2019 Fenix Engineering Solutions
 # @author Jose F. Fernandez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
 {
     'name': 'Pagare Payment and Printing',
     'version': "11.0.1.2.9",
     'category': 'Accounting',
+    'sequence': 10,
     'summary': 'Pagare payment methods and pagare printing',
     'description': """
 This module adds outbound and inbound pagare payment methods. You can also print your emitted pagares.
