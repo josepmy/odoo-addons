@@ -4,12 +4,15 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': "Project Kanban Documents",
-    'version': "11.0.1.0.2",
+    'version': "11.0.1.1.4",
     'category': "Project",
     'sequence': 10,
     'license': 'AGPL-3',
     'author': "Fenix Engineering Solutions",
     'website': "http://www.fenix-es.com",
+    'images': [
+        'static/description/cover.png'
+    ],
     'depends': ['project', ],
     'data': [
         'views/project_inherit.xml',
