@@ -4,17 +4,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': "Project Task Collaborators",
-    'version': "11.0.1.1.6",
+    'version': "11.0.1.2.8",
     'category': "Project",
     'sequence': 10,
     'summary': "Add collaborators to project task",
-    'description': """
-    Project Task Collaborators
-    =========================
-
-    Add collaborators to project task.
-    Collaborators are employees (either from the company or from other companies)
-    """,
     'license': 'AGPL-3',
     'author': "Fenix Engineering Solutions",
     'website': "http://www.fenix-es.com",

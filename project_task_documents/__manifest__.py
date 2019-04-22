@@ -7,6 +7,7 @@
     'version': "11.0.1.1.2",
     'category': "Project",
     'sequence': 10,
+    'summary': "Add documents to project task",
     'license': 'AGPL-3',
     'author': "Fenix Engineering Solutions",
     'website': "http://www.fenix-es.com",
@@ -22,11 +23,4 @@
     'application': False,
     'installable': True,
     'auto_install': False,
-    'summary': "Add documents to project task",
-    'description': """
-Project Task Documents
-======================
-
-Add documents button on project task and on kanban view of task.
-""",
 }
