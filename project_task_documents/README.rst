@@ -8,6 +8,8 @@ Project Task Documents
 
 This module adds a documents button on project task and on kanban view of task.
 
+Used as direct dependency on our `Trello Connector Odoo App <https://apps.odoo.com/apps/modules/11.0/project_trello_connector/>`_.
+
 
 Configuration
 =============
