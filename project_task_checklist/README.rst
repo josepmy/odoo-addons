@@ -7,8 +7,8 @@ Project Task Checklist
 ======================
 
 This module adds a checklist to project task.
-
-Used as direct dependency on our `Trello Connector Odoo App <https://apps.odoo.com/apps/modules/11.0/project_trello_connector/>`_.
+The implementation is oriented to facilitate the integration and sincronization with Trello, because it is developed to
+be a direct dependency on our `Trello Connector Odoo App <https://apps.odoo.com/apps/modules/11.0/project_trello_connector/>`_.
 
 
 Configuration

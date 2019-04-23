@@ -25,10 +25,4 @@
     'application': False,
     'installable': True,
     'auto_install': False,
-    'description': """
-Project Task Checklist
-======================
-
-Add checklist to project task.
-""",
 }
