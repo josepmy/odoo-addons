@@ -14,6 +14,4 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     checklist_name = fields.Char(string='Checklist name')
-    progress_from_checklist = fields.Boolean(string='Checklist progress')
     checklist_item_ids = fields.One2many('project_task_checklist.item', 'task_id', string='Checklist elements')
-
