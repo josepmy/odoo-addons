@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'Pagare Payment and Printing',
-    'version': "11.0.1.2.9",
+    'version': "11.0.1.3.10",
     'category': 'Accounting',
     'sequence': 10,
     'summary': 'Pagare payment methods and pagare printing',

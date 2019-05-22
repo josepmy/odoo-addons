@@ -156,17 +156,17 @@ class AccountPayment(models.Model):
 
     def set_pagare_number_from_printing(self, pagare_number):
         self.pagare_number = pagare_number
-        account = self.payment_type in (
+        account_id = self.payment_type in (
             'outbound', 'transfer'
-        ) and self.journal_id.default_debit_account_id.id or self.journal_id.default_credit_account_id.id
+        ) and self.journal_id.default_debit_account_id or self.journal_id.default_credit_account_id
         if self.payment_type == 'outbound':
             self.name = _('Emitted pagare: %d') % pagare_number
-            account = self.journal_id.pagare_outbound_bridge_account_id or self.journal_id.account_id
-            self.move_line_ids.filtered(lambda m: m.account_id == account).name = self.name
+            account_id = self.journal_id.pagare_outbound_bridge_account_id or account_id
+            self.move_line_ids.filtered(lambda m: m.account_id == account_id).name = self.name
         elif self.payment_type == 'inbound':
             self.name = _('Received pagare: %d') % pagare_number
-            account = self.journal_id.pagare_inbound_bridge_account_id or self.journal_id.account_id
-            self.move_line_ids.filtered(lambda m: m.account_id == account).name = self.name
+            account_id = self.journal_id.pagare_inbound_bridge_account_id or account_id
+            self.move_line_ids.filtered(lambda m: m.account_id == account_id).name = self.name
 
     @api.multi
     def unmark_sent(self):
