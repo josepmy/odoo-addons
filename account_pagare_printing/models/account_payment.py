@@ -55,7 +55,7 @@ class AccountRegisterPayments(models.TransientModel):
             if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
                 self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
         if self.payment_method_id.code == 'pagare_printing' and self.payment_method_id.payment_type == 'inbound':
-            self.communication = ''
+            self.communication = False
 
     def _prepare_payment_vals(self, invoices):
         res = super(AccountRegisterPayments, self)._prepare_payment_vals(invoices)
@@ -72,7 +72,6 @@ class AccountRegisterPayments(models.TransientModel):
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    # state = fields.Selection(selection_add=[('received', 'Received')])
     pagare_due_date = fields.Date(string='Pagare Due Date')
     pagare_amount_in_words = fields.Char(string="Amount in Words")
     pagare_manual_sequencing = fields.Boolean(related='journal_id.pagare_manual_sequencing', readonly=1)
@@ -109,6 +108,8 @@ class AccountPayment(models.Model):
             self.pagare_due_date = date_due
             if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
                 self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
+        if self.payment_method_id.code == 'pagare_printing' and self.payment_method_id.payment_type == 'inbound':
+            self.communication = False
 
     @api.model
     def create(self, vals):
@@ -164,10 +165,6 @@ class AccountPayment(models.Model):
             self.name = _('Emitted pagare: %d') % pagare_number
             account_id = self.journal_id.pagare_outbound_bridge_account_id or account_id
             self.move_line_ids.filtered(lambda m: m.account_id == account_id).name = self.name
-        # elif self.payment_type == 'inbound':
-        #    self.name = _('Received pagare: %d') % pagare_number
-        #    account_id = self.journal_id.pagare_inbound_bridge_account_id or account_id
-        #    self.move_line_ids.filtered(lambda m: m.account_id == account_id).name = self.name
 
     @api.multi
     def unmark_sent(self):
@@ -184,12 +181,9 @@ class AccountPayment(models.Model):
                           "installed and its configuration in the bank journal is correct."))
 
     def _get_move_vals(self, journal=None):
-        _logger.warning('----> _get_move_vals')
         if self.payment_method_id.code == 'pagare_printing':
             if self.payment_type == 'inbound' and self.journal_id.pagare_inbound_journal_id:
-                _logger.warning('===== CAMBIAR JOURNAL: %s', self.journal_id.pagare_inbound_journal_id.name)
                 return super(AccountPayment, self)._get_move_vals(self.journal_id.pagare_inbound_journal_id)
-        _logger.warning('===== MANTENER JOURNAL')
         return super(AccountPayment, self)._get_move_vals(journal)
 
     def _get_counterpart_move_line_vals(self, invoice=None):
