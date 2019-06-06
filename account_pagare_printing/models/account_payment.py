@@ -202,7 +202,7 @@ class AccountPayment(models.Model):
                 if self.journal_id.pagare_outbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_outbound_bridge_account_id.id
             elif self.payment_type == 'inbound':
-                vals['name'] = _('Received pagare: %d') % self.communication
+                vals['name'] = _('Received pagare: %s') % self.communication
                 if self.journal_id.pagare_inbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_inbound_bridge_account_id.id
         return vals
@@ -220,6 +220,6 @@ class AccountPayment(models.Model):
                     if rec.payment_type == 'outbound':
                         rec.name = _('Emitted pagare: %d') % rec.pagare_number
                     elif rec.payment_type == 'inbound':
-                        rec.name = _('Received pagare: %d') % rec.communication
+                        rec.name = _('Received pagare: %s') % rec.communication
 
         return super(AccountPayment, self).post()
