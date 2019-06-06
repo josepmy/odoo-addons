@@ -70,7 +70,7 @@ class AccountRegisterPayments(models.TransientModel):
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    state = fields.Selection(selection_add=[('received', 'Received')])
+    # state = fields.Selection(selection_add=[('received', 'Received')])
     pagare_due_date = fields.Date(string='Pagare Due Date')
     pagare_amount_in_words = fields.Char(string="Amount in Words")
     pagare_manual_sequencing = fields.Boolean(related='journal_id.pagare_manual_sequencing', readonly=1)
@@ -162,10 +162,10 @@ class AccountPayment(models.Model):
             self.name = _('Emitted pagare: %d') % pagare_number
             account_id = self.journal_id.pagare_outbound_bridge_account_id or account_id
             self.move_line_ids.filtered(lambda m: m.account_id == account_id).name = self.name
-        elif self.payment_type == 'inbound':
-            self.name = _('Received pagare: %d') % pagare_number
-            account_id = self.journal_id.pagare_inbound_bridge_account_id or account_id
-            self.move_line_ids.filtered(lambda m: m.account_id == account_id).name = self.name
+        # elif self.payment_type == 'inbound':
+        #    self.name = _('Received pagare: %d') % pagare_number
+        #    account_id = self.journal_id.pagare_inbound_bridge_account_id or account_id
+        #    self.move_line_ids.filtered(lambda m: m.account_id == account_id).name = self.name
 
     @api.multi
     def unmark_sent(self):
@@ -180,6 +180,12 @@ class AccountPayment(models.Model):
                 ).report_action(self)
         raise UserError(_("There is no pagare layout configured.\nMake sure the proper pagare printing module is "
                           "installed and its configuration in the bank journal is correct."))
+
+    def _get_move_vals(self, journal=None):
+        if self.payment_method_id.code == 'pagare_printing':
+            if self.payment_type == 'inbound' and self.journal_id.pagare_inbound_journal_id:
+                return super(AccountPayment, self)._get_move_vals(self.journal_id.pagare_inbound_journal_id)
+        return super(AccountPayment, self)._get_move_vals(journal)
 
     def _get_counterpart_move_line_vals(self, invoice=None):
         vals = super(AccountPayment, self)._get_counterpart_move_line_vals(invoice)
@@ -196,7 +202,7 @@ class AccountPayment(models.Model):
                 if self.journal_id.pagare_outbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_outbound_bridge_account_id.id
             elif self.payment_type == 'inbound':
-                vals['name'] = _('Received pagare: %d') % self.pagare_number
+                vals['name'] = _('Received pagare: %d') % self.communication
                 if self.journal_id.pagare_inbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_inbound_bridge_account_id.id
         return vals
@@ -214,6 +220,6 @@ class AccountPayment(models.Model):
                     if rec.payment_type == 'outbound':
                         rec.name = _('Emitted pagare: %d') % rec.pagare_number
                     elif rec.payment_type == 'inbound':
-                        rec.name = _('Received pagare: %d') % rec.pagare_number
+                        rec.name = _('Received pagare: %d') % rec.communication
 
         return super(AccountPayment, self).post()

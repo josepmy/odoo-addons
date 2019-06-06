@@ -62,6 +62,10 @@ class AccountJournal(models.Model):
                                                        string='Inbound Pagare Bridge Account',
                                                        domain=[('deprecated', '=', False)],
                                                        help="Account to move the ammount when the pagare is received.")
+    pagare_inbound_journal_id = fields.Many2one(comodel_name='account.journal',
+                                                string='Inbound Pagare Journal',
+                                                domain=[('type', '=', 'general')],
+                                                help="Journal to post the payment move, if different from this one.")
     pagare_layout_id = fields.Many2one(comodel_name='account.payment.pagare.report', string="Pagare printing format")
 
     @api.model

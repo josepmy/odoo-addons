@@ -41,6 +41,7 @@
                     <field name="pagare_outbound_bridge_account_id" attrs="{'invisible': [('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
                     <field name="pagare_layout_id" attrs="{'invisible': [('pagare_printing_outbound_payment_method_selected', '=', False)]}"/>
                     <field name="pagare_inbound_bridge_account_id" attrs="{'invisible': [('pagare_printing_inbound_payment_method_selected', '=', False)]}"/>
+                    <field name="pagare_inbound_journal_id" attrs="{'invisible': [('pagare_printing_inbound_payment_method_selected', '=', False)]}"/>
                 </group>
             </xpath>
         </field>
