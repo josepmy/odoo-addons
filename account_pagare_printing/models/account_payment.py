@@ -54,6 +54,8 @@ class AccountRegisterPayments(models.TransientModel):
             self.pagare_due_date = self._compute_pagare_due_date(invoices)
             if self.payment_method_id == self.env.ref('account_pagare_printing.account_payment_method_outbound_pagare'):
                 self.pagare_amount_in_words = self.currency_id.amount_to_text(self.amount)
+        if self.payment_method_id.code == 'pagare_printing' and self.payment_method_id.payment_type == 'inbound':
+            self.communication = ''
 
     def _prepare_payment_vals(self, invoices):
         res = super(AccountRegisterPayments, self)._prepare_payment_vals(invoices)
@@ -182,15 +184,20 @@ class AccountPayment(models.Model):
                           "installed and its configuration in the bank journal is correct."))
 
     def _get_move_vals(self, journal=None):
+        _logger.warning('----> _get_move_vals')
         if self.payment_method_id.code == 'pagare_printing':
             if self.payment_type == 'inbound' and self.journal_id.pagare_inbound_journal_id:
+                _logger.warning('===== CAMBIAR JOURNAL: %s', self.journal_id.pagare_inbound_journal_id.name)
                 return super(AccountPayment, self)._get_move_vals(self.journal_id.pagare_inbound_journal_id)
+        _logger.warning('===== MANTENER JOURNAL')
         return super(AccountPayment, self)._get_move_vals(journal)
 
     def _get_counterpart_move_line_vals(self, invoice=None):
         vals = super(AccountPayment, self)._get_counterpart_move_line_vals(invoice)
         if self.payment_method_id.code == 'pagare_printing':
             vals['date_maturity'] = self.pagare_due_date
+            if self.payment_type == 'inbound' and self.journal_id.pagare_inbound_journal_id:
+                vals['journal_id'] = self.journal_id.pagare_inbound_journal_id.id
         return vals
 
     def _get_liquidity_move_line_vals(self, amount):
@@ -205,6 +212,8 @@ class AccountPayment(models.Model):
                 vals['name'] = _('Received pagare: %s') % self.communication
                 if self.journal_id.pagare_inbound_bridge_account_id:
                     vals['account_id'] = self.journal_id.pagare_inbound_bridge_account_id.id
+                if self.journal_id.pagare_inbound_journal_id:
+                    vals['journal_id'] = self.journal_id.pagare_inbound_journal_id.id
         return vals
 
     @api.multi
