@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-03 00:51+0000\n"
-"PO-Revision-Date: 2019-04-03 00:51+0000\n"
+"POT-Creation-Date: 2019-06-06 21:29+0000\n"
+"PO-Revision-Date: 2019-06-06 21:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:86
+#: code:addons/account_pagare_printing/models/account_journal.py:89
 #, python-format
 msgid ": Pagare Number Sequence"
 msgstr ": Secuencia de numeración de pagarés"
@@ -89,9 +89,9 @@ msgid "Emitted Pagare"
 msgstr "Pagaré emitido"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:163
-#: code:addons/account_pagare_printing/models/account_payment.py:196
-#: code:addons/account_pagare_printing/models/account_payment.py:216
+#: code:addons/account_pagare_printing/models/account_payment.py:165
+#: code:addons/account_pagare_printing/models/account_payment.py:202
+#: code:addons/account_pagare_printing/models/account_payment.py:224
 #, python-format
 msgid "Emitted pagare: %d"
 msgstr "Pagaré emitido: %d"
@@ -104,7 +104,7 @@ msgid "ID"
 msgstr "ID (identificación)"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:132
+#: code:addons/account_pagare_printing/models/account_payment.py:134
 #, python-format
 msgid "In order to print multiple pagares at once, they must belong to the same bank journal."
 msgstr "Para poder imprimir múltiples pagarés deben pertenecer al mismo diario bancario."
@@ -115,6 +115,11 @@ msgid "Inbound Pagare Bridge Account"
 msgstr "Cuenta puente pagaré recibido"
 
 #. module: account_pagare_printing
+#: model:ir.model.fields,field_description:account_pagare_printing.field_account_journal_pagare_inbound_journal_id
+msgid "Inbound Pagare Journal"
+msgstr "Diario asiento pagaré recibido"
+
+#. module: account_pagare_printing
 #: model:ir.ui.view,arch_db:account_pagare_printing.report_pagare_base
 msgid "Invoice Date"
 msgstr "Fecha factura"
@@ -123,6 +128,11 @@ msgstr "Fecha factura"
 #: model:ir.model,name:account_pagare_printing.model_account_journal
 msgid "Journal"
 msgstr "Diario"
+
+#. module: account_pagare_printing
+#: model:ir.model.fields,help:account_pagare_printing.field_account_journal_pagare_inbound_journal_id
+msgid "Journal to post the payment move, if different from this one."
+msgstr "Diario en el que se realizará el asiento del pago si es diferente al actual."
 
 #. module: account_pagare_printing
 #: model:ir.model.fields,field_description:account_pagare_printing.field_account_payment_pagare_report___last_update
@@ -181,7 +191,7 @@ msgid "Number of the pagare corresponding to this payment. If your pre-printed p
 msgstr "Número del pagaré correspondiente a éste pago. Si sus pagarés pre-impresos no están ya numerados, puede configurar la numeración en la página de configuración del diario."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:209
+#: code:addons/account_pagare_printing/models/account_payment.py:217
 #, python-format
 msgid "Only a draft payment can be posted."
 msgstr "Solamente un pago en borrador puede ser confirmado."
@@ -261,7 +271,7 @@ msgid "Pagares numbering sequence."
 msgstr "Secuencia de numeración de los pagarés."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:132
+#: code:addons/account_pagare_printing/models/account_journal.py:135
 #, python-format
 msgid "Pagares to Print"
 msgstr "Pagarés a Imprimir"
@@ -282,7 +292,7 @@ msgid "Payments"
 msgstr "Pagos"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:129
+#: code:addons/account_pagare_printing/models/account_payment.py:131
 #, python-format
 msgid "Payments to print as a pagare must have 'Emitted Pagare' selected as payment method and not have already been reconciled"
 msgstr "Los pagos para imprimir como pagarés deben tener 'Pagaré emitido' seleccionado como método de pago y no estar conciliados"
@@ -308,7 +318,7 @@ msgid "Print Pagares"
 msgstr "Imprimir Pagarés"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:142
+#: code:addons/account_pagare_printing/models/account_payment.py:144
 #: model:ir.model,name:account_pagare_printing.model_print_prenumbered_pagares
 #: model:ir.ui.view,arch_db:account_pagare_printing.print_pre_numbered_pagares_view
 #, python-format
@@ -321,12 +331,11 @@ msgid "Received Pagare"
 msgstr "Pagaré recibido"
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:167
-#: code:addons/account_pagare_printing/models/account_payment.py:200
-#: code:addons/account_pagare_printing/models/account_payment.py:218
+#: code:addons/account_pagare_printing/models/account_payment.py:206
+#: code:addons/account_pagare_printing/models/account_payment.py:226
 #, python-format
-msgid "Received pagare: %d"
-msgstr "Pagaré recibido: %d"
+msgid "Received pagare: %s"
+msgstr "Pagaré recibido: %s"
 
 #. module: account_pagare_printing
 #: model:ir.model,name:account_pagare_printing.model_account_register_payments
@@ -354,13 +363,13 @@ msgid "Technical feature used to know whether pagare printing was enabled as out
 msgstr "Campo técnico usado para saber si la pagaré emitido se habilitó como método de pago."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_journal.py:38
+#: code:addons/account_pagare_printing/models/account_journal.py:37
 #, python-format
 msgid "The last pagare number was %s. In order to avoid a pagare being rejected by the bank, you can only use a greater number."
 msgstr "El último número de pagaré fue %s. Con el fin de evitar que un pagaré sea rechazado por el banco, sólo se puede utilizar un número mayor."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:211
+#: code:addons/account_pagare_printing/models/account_payment.py:219
 #, python-format
 msgid "The payment cannot be processed because the invoice is not open!"
 msgstr "El pago no puede ser procesado porque la factura no está abierta."
@@ -371,7 +380,7 @@ msgid "The selected journal is configured to print pagare numbers. If your pre-p
 msgstr "El diario seleccionado está configurado para imprimir números de pagaré. Si sus pagarés pre-impresos ya tienen números o si la numeración actual es incorrecta, puede cambiarla en la página de configuración del diario."
 
 #. module: account_pagare_printing
-#: code:addons/account_pagare_printing/models/account_payment.py:182
+#: code:addons/account_pagare_printing/models/account_payment.py:180
 #, python-format
 msgid "There is no pagare layout configured.\n"
 "Make sure the proper pagare printing module is installed and its configuration in the bank journal is correct."

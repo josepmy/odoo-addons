@@ -22,6 +22,13 @@ Se pueden crear nuevos formatos a través de módulos complementarios y
 asignarlos a un diario bancario seleccionando el formato adecuado en la
 configuración.
 
+Para los pagarés recibidos solamente se realiza el asiento de 430 a 431,
+seleccionando la cuenta 431 como cuenta puente. El número de pagaré se puede
+indicar en el concepto y quedará registrado en el asiento y en el efecto, accesible
+desde la factura.
+Éste asiento se puede realizar en un diario diferente al del banco, indicándolo en la
+configuración.
+
 
 Configuración
 =============
@@ -30,9 +37,13 @@ En el diario del banco se puede seleccionar el modo de pago y cobro Pagaré
 (pagare_printing)
 
 Una vez seleccionado, nos permitirá indicar la cuenta puente para el asiento
-y, en el caso de pagarés emitidos, asignar un contador para la numeración
-manual de los pagarés. Si no se numeran con el contador, al realizar la
-impresión del documento bancario solicitará el número preimpreso en el mismo.
+y asignar un contador para la numeración manual de los pagarés. Si no se
+numeran con el contador, al realizar la impresión del documento bancario
+solicitará el número preimpreso en el mismo.
+
+Para los pagarés recibidos se puede indicar la cuenta puente y el diario en
+el que se desea realizar el asiento (al no ser un movimiento bancario, normalmente
+se realiza en el diario 'Varios').
 
 
 Uso
