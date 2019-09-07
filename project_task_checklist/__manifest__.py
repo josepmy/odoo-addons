@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': "Project Task Checklist",
-    'version': "11.0.1.1.8",
+    'version': "11.0.1.2.10",
     'category': "Project",
     'sequence': 10,
     'summary': "Add checklist to project task",

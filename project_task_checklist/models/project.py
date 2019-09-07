@@ -13,4 +13,4 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     checklist_name = fields.Char(string='Checklist name')
-    checklist_item_ids = fields.One2many('project_task_checklist.item', 'task_id', string='Checklist elements')
+    checklist_item_ids = fields.One2many('project_task_checklist.item', 'task_id', string='Checklist elements', copy=True)
