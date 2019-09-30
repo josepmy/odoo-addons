@@ -30,7 +30,7 @@ class ReportPagarePrinting(models.AbstractModel):
                 amount_currency = 0.0
                 amount = 0.0
                 line = {
-                    'date': invoice.date,
+                    'date': invoice.date_invoice,
                     'date_due': invoice.date_due,
                     'reference': invoice.reference,
                     'number': invoice.number,
