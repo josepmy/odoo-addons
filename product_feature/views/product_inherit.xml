@@ -62,7 +62,7 @@
                             <group>
                                 <group>
                                     <field name="feature_value_type" invisible="1"/>
-                                    <field name="feature_id"/>
+                                    <field name="feature_id" readonly="1" options="{'no_open': True}"/>
                                 </group>
                                 <group>
                                     <field name="table_value_id" options="{'no_create_edit': True}"

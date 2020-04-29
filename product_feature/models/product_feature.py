@@ -221,7 +221,7 @@ class ProductFeatureValue(models.Model):
     def _compute_code(self):
         for value in self:
             if value.feature_value_type == 'table':
-                value.code = value.table_value_id and value.table_value_id.code
+                value.code = value.table_value_id and value.table_value_id.code or ''
             else:
                 value.code = value.text_number_code
 
@@ -242,7 +242,7 @@ class ProductFeatureValue(models.Model):
     def _compute_value(self):
         for value in self:
             if value.feature_value_type == 'table':
-                value.value = value.table_value_id and value.table_value_id.name
+                value.value = value.table_value_id and value.table_value_id.name or ''
             elif value.feature_value_type == 'text':
                 value.value = value.text_value
             elif value.feature_value_type == 'number':
