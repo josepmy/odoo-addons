@@ -77,7 +77,7 @@
                                 </group>
                             </group>
                         </form>
-                        <tree string="Features" options="{'no_create_edit': True}">
+                        <tree string="Features" create="false" delete="false">
                             <field name="feature_id"/>
                             <field name="code"/>
                             <field name="value"/>
