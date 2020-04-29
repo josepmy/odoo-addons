@@ -16,5 +16,5 @@ class ProductProduct(models.Model):
         comodel_name='product_feature.value',
         inverse_name='product_id',
         string='Feature values',
+        help='You can manage the features in the product template, then you can input here values for each one.',
     )
-

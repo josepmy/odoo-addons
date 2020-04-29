@@ -61,7 +61,7 @@
                         <form string="Feature Value">
                             <group>
                                 <group>
-                                    <field name="feature_value_type" invisible="0"/>
+                                    <field name="feature_value_type" invisible="1"/>
                                     <field name="feature_id"/>
                                 </group>
                                 <group>
@@ -77,7 +77,7 @@
                                 </group>
                             </group>
                         </form>
-                        <tree string="Features">
+                        <tree string="Features" options="{'no_create_edit': True}">
                             <field name="feature_id"/>
                             <field name="code"/>
                             <field name="value"/>
