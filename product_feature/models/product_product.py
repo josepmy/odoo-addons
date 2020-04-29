@@ -14,5 +14,7 @@ class ProductProduct(models.Model):
 
     product_feature_value_ids = fields.One2many(
         comodel_name='product_feature.value',
-        inverse_name='product_id', string='Feature values')
+        inverse_name='product_id',
+        string='Feature values',
+    )
 

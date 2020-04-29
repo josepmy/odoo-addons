@@ -18,14 +18,17 @@ class ProductFeature(models.Model):
         comodel_name='res.company',
         string='Company',
         required=True,
-        default=lambda self: self.env.user.company_id)
+        default=lambda self: self.env.user.company_id,
+    )
     code = fields.Char(
         string='Feature Code',
-        index=True)
+        index=True,
+    )
     name = fields.Char(
         string='Feature name',
         required=True,
-        translate=True)
+        translate=True,
+    )
     value_type = fields.Selection([
         ('table', "Values table"),
         ('text', "Text value"),
@@ -35,10 +38,12 @@ class ProductFeature(models.Model):
         required=True,
         default='table',
         help="This selection defines the type of value used for the "
-             "feature.")
+             "feature.",
+    )
     num_decimals = fields.Integer(
         string='# of decimals',
-        default=0)
+        default=0,
+    )
     table_value_ids = fields.One2many(
         comodel_name='product_feature.table_value',
         inverse_name='feature_id', string='Feature table values')
@@ -57,19 +62,23 @@ class TableValue(models.Model):
     feature_id = fields.Many2one(
         comodel_name='product_feature.feature',
         string='Feature',
-        required=True)
+        required=True,
+    )
     company_id = fields.Many2one(
         related='feature_id.company_id',
         string='Company',
         store=True,
-        readonly=True)
+        readonly=True,
+    )
     code = fields.Char(
         string='Value Code',
-        index=True)
+        index=True,
+    )
     name = fields.Char(
         string='Value name',
         required=True,
-        translate=True)
+        translate=True,
+    )
 
     _sql_constraints = [
         ('product_feature_table_value_uniq_key', 'UNIQUE (company_id, feature_id, code, name)',
@@ -85,16 +94,20 @@ class ProductFeatureLine(models.Model):
     template_id = fields.Many2one(
         comodel_name='product.template',
         string='Product Template',
-        required=True)
+        required=True,
+        ondelete='cascade',
+    )
     feature_id = fields.Many2one(
         comodel_name='product_feature.feature',
         string='Feature',
-        required=True)
+        required=True,
+    )
     company_id = fields.Many2one(
         related='feature_id.company_id',
         string='Company',
         store=True,
-        readonly=True)
+        readonly=True,
+    )
     sequence = fields.Integer('Sequence', help="Determine the display order")
     default_text_value = fields.Char('Default Text Value', translate=True)
     default_number_value = fields.Float('Default Number Value')
@@ -102,16 +115,18 @@ class ProductFeatureLine(models.Model):
     max_number_value = fields.Float('Max. Number Value')
     feature_value_type = fields.Selection(
         related='feature_id.value_type',
-        readonly=True)
+        readonly=True,
+    )
     default_table_value_id = fields.Many2one(
         comodel_name='product_feature.table_value',
-        string='Default Table Value')
+        string='Default Table Value',
+    )
     filtered_table_value_ids = fields.Many2many(
         comodel_name='product_feature.table_value',
         string='Table Values',
         help='If you enter some values here, feature values of this template '
              'variant will be only allowed from this list. Leave empty to '
-             'allow any value from feature to be choosen.'
+             'allow any value from feature to be choosen.',
     )
 
     _sql_constraints = [
@@ -128,42 +143,62 @@ class ProductFeatureValue(models.Model):
     product_id = fields.Many2one(
         comodel_name='product.product',
         string='Product',
-        required=True)
+        required=True,
+        ondelete='cascade',
+    )
     company_id = fields.Many2one(
         related='product_id.company_id',
         string='Company',
         store=True,
-        readonly=True)
+        readonly=True,
+    )
     feature_line_id = fields.Many2one(
         comodel_name='product_feature.feature_line',
-        string='Feature Line')
+        string='Feature Line',
+        ondelete='cascade',
+    )
     sequence = fields.Integer(
         related='feature_line_id.sequence',
         string='Sequence',
         store=True,
         readonly=True,
-        help="Determine the display order")
+        help="Determine the display order",
+    )
     feature_id = fields.Many2one(
         comodel_name='product_feature.feature',
         string='Feature',
-        required=True)
+        required=True,
+        ondelete='restrict',
+    )
     feature_value_type = fields.Selection(
         related='feature_id.value_type',
-        readonly=True)
+        readonly=True,
+    )
     text_number_code = fields.Char('Value Code', index=True)
     text_value = fields.Char('Text Value', translate=True)
     number_value = fields.Float('Number Value')
     table_value_id = fields.Many2one(
         comodel_name='product_feature.table_value',
-        string='Table Value')
+        string='Table Value',
+        ondelete='restrict',
+    )
     possible_value_ids = fields.Many2many(
         comodel_name='product_feature.table_value',
         compute='_compute_possible_value_ids',
-        readonly=True)
+        readonly=True,
+    )
     code = fields.Char(
-        'Code', compute='_compute_code', inverse='_set_code', store=True)
+        'Code',
+        compute='_compute_code',
+        inverse='_set_code',
+        store=True,
+    )
     value = fields.Char(
-        'Value', compute='_compute_value', inverse='_set_value', store=True)
+        'Value',
+        compute='_compute_value',
+        inverse='_set_value',
+        store=True,
+    )
 
     _sql_constraints = [
         ('product_feature_value_uniq_key',
