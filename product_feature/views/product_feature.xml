@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2019 Fenix Engineering Solutions
+    @author Jose F. Fernandez
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="product_feature_tree_view" model="ir.ui.view">
+        <field name="name">product.feature.tree</field>
+        <field name="model">product_feature.feature</field>
+        <field name="arch" type="xml">
+            <tree string="Product Features">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="value_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_feature_form_view" model="ir.ui.view">
+        <field name="name">product.feature.form</field>
+        <field name="model">product_feature.feature</field>
+        <field name="arch" type="xml">
+            <form string="Product Feature">
+                <group>
+                    <group name="main_fields">
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="value_type"/>
+                    </group>
+                </group>
+                <group name="table_values_ids" attrs="{'invisible': [('value_type','!=','table')]}">
+                    <field name="table_value_ids">
+                        <tree string="Values" editable="bottom">
+                            <field name="code"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="feature_action" model="ir.actions.act_window">
+        <field name="name">Features</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product_feature.feature</field>
+        <field name="view_mode">tree</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <!-- menuitem action="product_feature.feature_action" id="menu_feature_action" parent="sale.prod_config_main" sequence="10" groups="product.group_product_variant"/-->
+
+</odoo>

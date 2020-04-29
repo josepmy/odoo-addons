@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2019 Fenix Engineering Solutions
+    @author Jose F. Fernandez
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record model="ir.ui.view" id="product_template_only_form_view">
+        <field name="name">product.features.template.only.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='variants']" position="after">
+                <page name="features" string="Features" groups="product.group_product_variant">
+                    <field name="product_feature_line_ids" widget="one2many_list">
+                        <form string="Feature Line">
+                            <group>
+                                <group>
+                                    <field name="feature_value_type" invisible="1"/>
+                                    <field name="feature_id"/>
+                                    <field name="default_table_value_id" options="{'no_create_edit': True}"
+                                           domain="[('feature_id', '=', feature_id)]"
+                                           attrs="{'invisible': [('feature_value_type','!=','table')]}"/>
+                                    <field name="default_text_value"
+                                           attrs="{'invisible': [('feature_value_type','!=','text')]}"/>
+                                    <field name="default_number_value"
+                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
+                                </group>
+                                <group>
+                                    <!--field name="filtered_table_value_ids" widget="many2many_tags"
+                                           options="{'no_create_edit': True}"
+                                           domain="[('feature_id', '=', feature_id)]"
+                                           context="{'default_feature_id': feature_id}"
+                                           attrs="{'invisible': [('feature_value_type','!=','table')]}"/-->
+                                    <field name="min_number_value"
+                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
+                                    <field name="max_number_value"
+                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
+                                </group>
+                            </group>
+                        </form>
+                        <tree string="Features">
+                            <field name="sequence" widget="handle" />
+                            <field name="feature_id"/>
+                            <!--field name="filtered_table_value_ids" widget="many2many_tags" options="{'no_create_edit': True}" domain="[('feature_id', '=', feature_id)]" context="{'default_feature_id': feature_id}"/-->
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_features_view">
+        <field name="name">product.features.product.variants.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page name="features" string="Features" groups="product.group_product_variant">
+                    <field name="product_feature_value_ids" widget="one2many_list">
+                        <form string="Feature Value">
+                            <group>
+                                <group>
+                                    <field name="feature_value_type" invisible="0"/>
+                                    <field name="feature_id"/>
+                                </group>
+                                <group>
+                                    <field name="table_value_id" options="{'no_create_edit': True}"
+                                           domain="[('feature_id', '=', feature_id)]"
+                                           attrs="{'invisible': [('feature_value_type','!=','table')]}"/>
+                                    <field name="text_number_code"
+                                           attrs="{'invisible': [('feature_value_type','==','table')]}"/>
+                                    <field name="text_value"
+                                           attrs="{'invisible': [('feature_value_type','!=','text')]}"/>
+                                    <field name="number_value"
+                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
+                                </group>
+                            </group>
+                        </form>
+                        <tree string="Features">
+                            <field name="feature_id"/>
+                            <field name="code"/>
+                            <field name="value"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

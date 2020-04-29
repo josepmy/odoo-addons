@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2018 Fenix Engineering Solutions
+    @author Jose F. Fernandez
+    See LICENSE file for full licensing details.
+-->
+<odoo>
+<data noupdate="1">
+    <record id="product_feature_feature_comp_rule" model="ir.rule">
+        <field name="name">Product Feature multi-company</field>
+        <field name="model_id" ref="model_product_feature_feature"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="product_feature_table_value_comp_rule" model="ir.rule">
+        <field name="name">Product Feature Table Value multi-company</field>
+        <field name="model_id" ref="model_product_feature_table_value"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="product_feature_feature_line_comp_rule" model="ir.rule">
+        <field name="name">Product Feature Line multi-company</field>
+        <field name="model_id" ref="model_product_feature_feature_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="product_feature_value_comp_rule" model="ir.rule">
+        <field name="name">Product Feature Value multi-company</field>
+        <field name="model_id" ref="model_product_feature_value"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+</data>
+</odoo>
