@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': "Product Feature",
-    'version': "11.0.1.0.7",
+    'version': "11.0.1.0.8",
     'category': "Product",
     'sequence': 10,
     'summary': "Add product features",
@@ -17,6 +17,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
+        'data/product_feature_data.xml',
         'views/product_feature.xml',
         'views/product_inherit.xml',
     ],

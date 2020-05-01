@@ -13,32 +13,6 @@
             <xpath expr="//page[@name='variants']" position="after">
                 <page name="features" string="Features" groups="product.group_product_variant">
                     <field name="product_feature_line_ids" widget="one2many_list">
-                        <form string="Feature Line">
-                            <group>
-                                <group>
-                                    <field name="feature_value_type" invisible="1"/>
-                                    <field name="feature_id"/>
-                                    <field name="default_table_value_id" options="{'no_create_edit': True}"
-                                           domain="[('feature_id', '=', feature_id)]"
-                                           attrs="{'invisible': [('feature_value_type','!=','table')]}"/>
-                                    <field name="default_text_value"
-                                           attrs="{'invisible': [('feature_value_type','!=','text')]}"/>
-                                    <field name="default_number_value"
-                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
-                                </group>
-                                <group>
-                                    <!--field name="filtered_table_value_ids" widget="many2many_tags"
-                                           options="{'no_create_edit': True}"
-                                           domain="[('feature_id', '=', feature_id)]"
-                                           context="{'default_feature_id': feature_id}"
-                                           attrs="{'invisible': [('feature_value_type','!=','table')]}"/-->
-                                    <field name="min_number_value"
-                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
-                                    <field name="max_number_value"
-                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
-                                </group>
-                            </group>
-                        </form>
                         <tree string="Features">
                             <field name="sequence" widget="handle" />
                             <field name="feature_id"/>
@@ -50,7 +24,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="product_features_view">
+    <record model="ir.ui.view" id="product_normal_form_view">
         <field name="name">product.features.product.variants.form</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
@@ -58,25 +32,6 @@
             <xpath expr="//page[@name='general_information']" position="after">
                 <page name="features" string="Features" groups="product.group_product_variant">
                     <field name="product_feature_value_ids" widget="one2many_list">
-                        <form string="Feature Value">
-                            <group>
-                                <group>
-                                    <field name="feature_value_type" invisible="1"/>
-                                    <field name="feature_id" readonly="1" options="{'no_open': True}"/>
-                                </group>
-                                <group>
-                                    <field name="table_value_id" options="{'no_create_edit': True}"
-                                           domain="[('feature_id', '=', feature_id)]"
-                                           attrs="{'invisible': [('feature_value_type','!=','table')]}"/>
-                                    <field name="text_number_code"
-                                           attrs="{'invisible': [('feature_value_type','==','table')]}"/>
-                                    <field name="text_value"
-                                           attrs="{'invisible': [('feature_value_type','!=','text')]}"/>
-                                    <field name="number_value"
-                                           attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
-                                </group>
-                            </group>
-                        </form>
                         <tree string="Features" create="false" delete="false">
                             <field name="feature_id"/>
                             <field name="code"/>
@@ -84,6 +39,19 @@
                         </tree>
                     </field>
                 </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="name">product.product.view.feature.form.easy</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='attribute_value_ids']/parent::group" position="after">
+                <group name="product_features" string="Features">
+                    <field name="product_feature_value_ids" widget="many2many_tags" readonly="1"/>
+                </group>
             </xpath>
         </field>
     </record>
