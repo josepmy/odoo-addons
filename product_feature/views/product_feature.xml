@@ -89,11 +89,6 @@
                                attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
                     </group>
                     <group name="feat_line_2">
-                        <!--field name="filtered_table_value_ids" widget="many2many_tags"
-                               options="{'no_create_edit': True}"
-                               domain="[('feature_id', '=', feature_id)]"
-                               context="{'default_feature_id': feature_id}"
-                               attrs="{'invisible': [('feature_value_type','!=','table')]}"/-->
                         <field name="min_number_value"
                                attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
                         <field name="max_number_value"
@@ -112,7 +107,7 @@
         <field name="model">product_feature.value</field>
         <field name="arch" type="xml">
             <form string="Feature Value">
-                <group>
+                <group name="feat_val_main">
                     <group name="feat_val_1">
                         <field name="feature_value_type" invisible="1"/>
                         <field name="feature_line_id" invisible="1"/>

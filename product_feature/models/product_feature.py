@@ -160,7 +160,6 @@ class ProductFeatureLine(models.Model):
     @api.multi
     @api.constrains('default_number_value', 'min_number_value', 'max_number_value')
     def _check_default_number_limits(self):
-        _logger.warning('---> _check_default_number_limits: %s', self)
         for line in self:
             if line.min_number_value and line.max_number_value:
                 if line.min_number_value > line.max_number_value:
@@ -280,17 +279,17 @@ class ProductFeatureValue(models.Model):
     @api.multi
     @api.constrains('number_value')
     def _check_number_limits(self):
-        for line in self:
-            if line.feature_value_type == 'number':
-                if line.feature_line_id.min_number_value:
-                    if float_compare(line.feature_line_id.min_number_value,
-                                     line.number_value,
-                                     precision_digits=line.feature_id.num_decimals) == 1:
+        for record in self:
+            if record.feature_value_type == 'number':
+                if record.feature_line_id and record.feature_line_id.min_number_value:
+                    if float_compare(record.feature_line_id.min_number_value,
+                                     record.number_value,
+                                     precision_digits=record.feature_id.num_decimals) == 1:
                         raise ValidationError(_('Value must not be lower than minimum value.'))
-                if line.feature_line_id.max_number_value:
-                    if float_compare(line.number_value,
-                                     line.feature_line_id.max_number_value,
-                                     precision_digits=line.feature_id.num_decimals) == 1:
+                if record.feature_line_id and record.feature_line_id.max_number_value:
+                    if float_compare(record.number_value,
+                                     record.feature_line_id.max_number_value,
+                                     precision_digits=record.feature_id.num_decimals) == 1:
                         raise ValidationError(_('Value must not be greater than maximum value.'))
         return True
 
@@ -363,19 +362,27 @@ class ProductFeatureValue(models.Model):
                                      float_value,
                                      precision_digits=value.feature_id.num_decimals) == 1:
                         raise ValidationError(_(
-                            'Value must not be lower than minimum value (%.2f).' % value.feature_line_id.min_number_value))
+                            'Value must not be lower than minimum value (%s).' % formatLang(
+                                self.env,
+                                value.feature_line_id.min_number_value,
+                                digits=value.feature_id.num_decimals)))
                 if value.feature_line_id and value.feature_line_id.max_number_value:
                     if float_compare(float_value,
                                      value.feature_line_id.max_number_value,
                                      precision_digits=value.feature_id.num_decimals) == 1:
                         raise ValidationError(_(
-                            'Value must not be larger than maximum value (%.2f).' % value.feature_line_id.max_number_value))
+                            'Value must not be larger than maximum value (%s).' % formatLang(
+                                self.env,
+                                value.feature_line_id.max_number_value,
+                                digits=value.feature_id.num_decimals)))
                 value.number_value = float_value
 
     @api.multi
     @api.depends('feature_id', 'feature_id.name', 'code', 'value')
     def name_get(self):
-        return [(rec.id, '%s: %s%s' % (rec.feature_id.name, rec.code and ('[%s] - ' % rec.code) or '', rec.value)) for rec in self]
+        return [(rec.id,
+                 '%s: %s%s' % (rec.feature_id.name, rec.code and ('[%s] - ' % rec.code) or '', rec.value)
+                 ) for rec in self]
 
     @api.onchange('number_value')
     def _onchange_number_value(self):
@@ -387,7 +394,11 @@ class ProductFeatureValue(models.Model):
                                  precision_digits=self.feature_id.num_decimals) == 1:
                     return {'warning': {
                         'title': _('Out of limits!'),
-                        'message': _('Value must not be lower than minimum value (%.2f).' % self.feature_line_id.min_number_value)
+                        'message': _(
+                            'Value must not be lower than minimum value (%s).' % formatLang(
+                                self.env,
+                                self.feature_line_id.min_number_value,
+                                digits=self.feature_id.num_decimals))
                     }}
             if self.feature_line_id.max_number_value:
                 if float_compare(self.number_value,
@@ -395,6 +406,9 @@ class ProductFeatureValue(models.Model):
                                  precision_digits=self.feature_id.num_decimals) == 1:
                     return {'warning': {
                         'title': _('Out of limits!'),
-                        'message': _('Value must not be larger than maximum value (%.2f).' % self.feature_line_id.max_number_value)
+                        'message': _(
+                            'Value must not be larger than maximum value (%s).' % formatLang(
+                                self.env,
+                                self.feature_line_id.max_number_value,
+                                digits=self.feature_id.num_decimals))
                     }}
-

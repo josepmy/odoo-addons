@@ -26,22 +26,22 @@ class ProductTemplate(models.Model):
         template = super(ProductTemplate, self).create(vals)
         if len(template.product_feature_line_ids) > 0 \
                 and len(template.product_variant_ids) > 0:
-            template.create_product_feature_value_ids()
+            template._create_product_feature_values()
         return template
 
     @api.multi
-    def write(self, values):
+    def write(self, vals):
         """
         Al actualizar, si se ha modificado product_feature_line_ids,
         actualizamos product feature values de las variantes
         """
-        res = super(ProductTemplate, self).write(values)
-        if 'product_feature_line_ids' in values:
-            self.create_product_feature_value_ids()
+        res = super(ProductTemplate, self).write(vals)
+        if 'product_feature_line_ids' in vals:
+            self._create_product_feature_values()
         return res
 
     @api.multi
-    def create_product_feature_value_ids(self):
+    def _create_product_feature_values(self):
         """
         Crear los valores de características en el producto en función
         de las que están definidas en la plantilla.
@@ -50,9 +50,13 @@ class ProductTemplate(models.Model):
         """
         for template in self:
             for variant in template.product_variant_ids:
-                values_to_add = template.product_feature_line_ids.mapped('feature_id') - variant.product_feature_value_ids.mapped('feature_id')
+                values_to_add = \
+                    template.product_feature_line_ids.mapped(
+                        'feature_id') - variant.product_feature_value_ids.mapped(
+                        'feature_id')
                 for value in values_to_add:
-                    line = template.product_feature_line_ids.filtered(lambda x: x.feature_id == value)
+                    line = template.product_feature_line_ids.filtered(
+                        lambda x: x.feature_id == value)
                     vals = {
                         'product_id': variant.id,
                         'feature_line_id': line.id,

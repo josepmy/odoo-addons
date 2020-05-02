@@ -16,7 +16,6 @@
                         <tree string="Features">
                             <field name="sequence" widget="handle" />
                             <field name="feature_id"/>
-                            <!--field name="filtered_table_value_ids" widget="many2many_tags" options="{'no_create_edit': True}" domain="[('feature_id', '=', feature_id)]" context="{'default_feature_id': feature_id}"/-->
                         </tree>
                     </field>
                 </page>

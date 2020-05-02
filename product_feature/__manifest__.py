@@ -1,9 +1,9 @@
 # Copyright 2019 Fenix Engineering Solutions
 # @author Jose F. Fernandez
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': "Product Feature",
-    'version': "11.0.1.0.8",
+    'version': "11.0.1.0.108",
     'category': "Product",
     'sequence': 10,
     'summary': "Add product features",
