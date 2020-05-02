@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2020 Fenix Engineering Solutions
+    @author Jose F. Fernandez
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="product_feature_tree_view" model="ir.ui.view">
+        <field name="name">product.lot.feature.tree</field>
+        <field name="model">product_feature.feature</field>
+        <field name="inherit_id" ref="product_feature.product_feature_tree_view" />
+        <field name="arch" type="xml">
+            <field name="value_type" position="after">
+                <field name="is_lot_feature"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_feature_form_view" model="ir.ui.view">
+        <field name="name">product.lot.feature.form</field>
+        <field name="model">product_feature.feature</field>
+        <field name="inherit_id" ref="product_feature.product_feature_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main_fields']" position="after">
+                <group name="extra_fields">
+                    <field name="is_lot_feature"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_feature_line_form_view" model="ir.ui.view">
+        <field name="name">product.lot.feature.line.form</field>
+        <field name="model">product_feature.feature_line</field>
+        <field name="inherit_id" ref="product_feature.product_feature_line_form_view" />
+        <field name="arch" type="xml">
+            <field name="min_number_value" position="before">
+                <field name="is_lot_feature"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_feature_value_form_view" model="ir.ui.view">
+        <field name="name">product.lot.feature.value.form</field>
+        <field name="model">product_feature.value</field>
+        <field name="inherit_id" ref="product_feature.product_feature_value_form_view" />
+        <field name="arch" type="xml">
+            <field name="feature_id" position="after">
+                <field name="is_lot_feature" invisible="1"/>
+            </field>
+            <group name="feat_val_main" position="before">
+                <div class="alert alert-danger" attrs="{'invisible': [('is_lot_feature', '=', False)]}">
+                    <p>We've got a problem! This feature is a lot feature, it should not be here.</p>
+                </div>
+            </group>
+            <group name="feat_val_2" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_lot_feature','=',True)]}</attribute>
+            </group>
+        </field>
+    </record>
+
+    <!-- Feature Lot Value -->
+
+    <record id="product_feature_lot_value_form_view" model="ir.ui.view">
+        <field name="name">product.feature.lot.value.form</field>
+        <field name="model">product_feature.lot.value</field>
+        <field name="arch" type="xml">
+            <form string="Feature Value">
+                <group name="feat_val_main">
+                    <group name="feat_val_1">
+                        <field name="feature_value_type" invisible="1"/>
+                        <field name="feature_line_id" invisible="1"/>
+                        <field name="feature_id" readonly="1" options="{'no_open': True}"/>
+                    </group>
+                    <group name="feat_val_2">
+                        <field name="table_value_id" options="{'no_create_edit': True}"
+                               domain="[('feature_id', '=', feature_id)]"
+                               attrs="{'invisible': [('feature_value_type','!=','table')]}"/>
+                        <field name="text_value"
+                               attrs="{'invisible': [('feature_value_type','!=','text')]}"/>
+                        <field name="number_value"
+                               attrs="{'invisible': [('feature_value_type','!=','number')]}"/>
+                        <field name="text_number_code"
+                               attrs="{'invisible': [('feature_value_type','==','table')]}"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>

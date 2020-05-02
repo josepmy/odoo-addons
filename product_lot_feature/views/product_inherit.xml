@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2020 Fenix Engineering Solutions
+    @author Jose F. Fernandez
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record model="ir.ui.view" id="product_template_only_form_view">
+        <field name="name">product.lot.features.template.only.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_feature_line_ids']/tree/field[@name='feature_id']" position="after">
+                <field name="is_lot_feature"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

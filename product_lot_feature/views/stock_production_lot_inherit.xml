@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2020 Fenix Engineering Solutions
+    @author Jose F. Fernandez
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record model="ir.ui.view" id="production_lot_form_view">
+        <field name="name">stock.production.lot.features.form</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <group name="main_group" position="inside">
+                <div>
+                    <label for="product_feature_lot_value_ids" style="font-weight: bold;"/>
+                    <field name="product_feature_lot_value_ids" widget="one2many_list">
+                        <tree string="Features" create="false" delete="false">
+                            <field name="feature_id"/>
+                            <field name="code"/>
+                            <field name="value"/>
+                        </tree>
+                    </field>
+                </div>
+            </group>
+        </field>
+    </record>
+
+</odoo>
